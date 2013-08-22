@@ -1,0 +1,25 @@
+{
+  "main": "index.html",
+  "name": "Reeddit for Mac",
+  "description": "Minimal, elastic and read-only Reddit client.",
+  "version": "1.6.2",
+  "maintainers": [{
+    "name": "Bernardo Baquero Stand",
+    "web": "http://berbaquero.com"
+  }],
+  "window": {
+    "title": "Reeddit",
+    "icon": "img/icon.png",
+    "toolbar": false,
+    "frame": true,
+    "width": 1001,
+    "height": 825,
+    "position": "center",
+    "min_width": 354,
+    "min_height": 480,
+    "max_width": 3000,
+    "max_height": 2500,
+    "resizable": true,
+    "show": false
+  }
+}
