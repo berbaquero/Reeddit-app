@@ -4,7 +4,7 @@
 
 .refresh-icon-FS:hover { background-color: rgba(0, 0, 0, 0.7); }
 
-.sub:hover, .channel:hover > p, .option:hover, #sorting p:hover { text-shadow: 0 0 7px #CCC; }
+.sub:hover, .channel:hover > p, .option:hover, #sorting p:hover { text-shadow: 0 0 10px rgba(255, 255, 255, 0.75); }
 
 .link, .sub, .channel, .list-button > span, .top-buttons > div, .comments-button, #add-new-sub, #remove-sub,
 .item-to-remove > div, .btn-add-sub, .close-form, #btn-add-new-channel, .option, #sorting p, .refresh-icon-FS, .btn-general { cursor: pointer; }
@@ -31,16 +31,12 @@
 				rgba(255, 255, 255, .3) 0 25px 30px -12px inset,
 				rgba(0, 0, 0, .6) 0 1px 2px;
 	background-image: -webkit-linear-gradient(#d1d1d1 50%, #a1a1a1 100%);
-	background-image: -moz-linear-gradient(#d1d1d1 50%, #a1a1a1 100%);
-	background-image: -o-linear-gradient(#d1d1d1 50%, #a1a1a1 100%);
 	background-image: linear-gradient(#d1d1d1 50%, #a1a1a1 100%);
 
 }
 
 .button:active, .btn-general:active {
 	background-image: -webkit-linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
-	background-image: -moz-linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
-	background-image: -o-linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
 	background-image: linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
 	box-shadow: 0 2px 7px black inset,
 				rgba(255, 255, 255, .4) 0 1px 0;
