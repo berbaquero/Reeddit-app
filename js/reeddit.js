@@ -338,21 +338,6 @@
                             $addClass(loader, "loader-error");
                             $text(loader, "Error loading subreddits.");
                         });
-                        /*$.ajax({
-                            url: urlInit + "reddits/.json?limit=50&jsonp=?",
-                            dataType: 'jsonp',
-                            success: function(list) {
-                                M.Subreddits.idLast = list.data.after;
-                                subreddits = Mustache.to_html(T.Subreddits.toAddList, list.data);
-                                main.empty().append(T.botonAgregarSubManual).append(subreddits).append(T.botonCargarMasSubs);
-                            },
-                            error: function() {
-                                // $('.loader').addClass("loader-error").text('Error loading subreddits.');
-                                var loader = $q('.loader');
-                                $addClass(loader, "loader-error");
-                                $text(loader, "Error loading subreddits.");
-                            }
-                        });*/
                     }
                     loadingLinks = false;
                 }, isLargeScreen ? 1 : 301);
@@ -578,32 +563,6 @@
                             if (isWideScreen) $html(loader, error + '<div class="comments-button" id="wide-refresh">Refresh</div>');
                             else $text(loader, error);
                         });
-                        /*$.ajax({
-                            dataType: 'jsonp',
-                            url: url,
-                            success: function(result) {
-                                if (currentThread !== id) return; // In case of trying to load a different thread before this one loaded.
-                                C.Misc.updatePostSummary(result[0].data.children[0].data, id);
-                                // $(".loader").remove();
-                                $remove($q(".loader"));
-                                var comments = result[1].data.children;
-                                C.Comments.load(comments, detail, id);
-                                loadingComments = false;
-                            },
-                            error: function() {
-                                loadingComments = false;
-                                var error = 'Error loading comments. Refresh to try again.';
-                                var loader = $q(".loader");
-                                $addClass(loader, "loader-error");
-                                if (isWideScreen) {
-                                    // $('.loader').addClass("loader-error").html(error + '<div class="comments-button" id="wide-refresh">Refresh</div>');
-                                    $html(loader, error + '<div class="comments-button" id="wide-refresh">Refresh</div>');
-                                } else {
-                                    // $('.loader').addClass("loader-error").text(error);
-                                    $text(loader, error);
-                                }
-                            }
-                        });*/
                     }
 
                     if (!refresh && currentView !== view.comments) V.Anims.slideFromRight();
@@ -659,22 +618,8 @@
                     C.currentSelection.setSubreddit(subName);
                     V.Subreddits.insert(subName, true);
                 }, function() { // On Error
-                    alert('Oh, the subreddit you entered is not valid...');
+                    alert('Oh oh, the subreddit you entered is not valid...');
                 });
-                /*$.ajax({
-                    url: urlInit + "r/" + subName + "/" + C.Sorting.get() + urlLimitEnd,
-                    dataType: 'jsonp',
-                    success: function(data) {
-                        C.Posts.loadFromManualInput(data);
-                        V.Actions.setSubTitle(subName);
-                        V.Subreddits.cleanSelected();
-                        C.currentSelection.setSubreddit(subName);
-                        V.Subreddits.insert(subName, true);
-                    },
-                    error: function() {
-                        alert('Oh, the subreddit you entered is not valid...');
-                    }
-                });*/
             }
         },
         Channels: {
@@ -1094,20 +1039,6 @@
                 $addClass(loader, "loader-error");
                 $text(loader, 'Error loading more subreddits. Refresh to try again.');
             });
-            /*$.ajax({
-                url: urlInit + 'reddits/' + urlEnd + '&after=' + M.Subreddits.idLast,
-                dataType: 'jsonp',
-                success: function(list) {
-                    var nuevosSubs = Mustache.to_html(T.Subreddits.toAddList, list.data);
-                    M.Subreddits.idLast = list.data.after;
-                    $('.loader', main).remove();
-                    main.append(nuevosSubs).append(T.botonCargarMasSubs);
-                    subreddits = subreddits + nuevosSubs;
-                },
-                error: function() {
-                    $('.loader').addClass('loader-error').text('Error loading more subreddits. Refresh to try again.');
-                }
-            });*/
         },
         activeClass: 'list-button-active'
     });
