@@ -872,33 +872,9 @@
         allowClick: false
     });
 
-    tappable("#link-summary a", {
+    tappable("#detail-wrap a", { // All link anchors from the detail view
         onTap: function(e, target) {
-            var url = target.getAttribute("href");
-            openURL(url);
-        },
-        allowClick: false
-    });
-
-    tappable("#summary-comment-num", {
-        onTap: function(e, target) {
-            var url = target.getAttribute("href");
-            openURL(url);
-        },
-        allowClick: false
-    });
-
-    tappable(".comment-info a", {
-        onTap: function(e, target) {
-            var url = target.getAttribute("href");
-            openURL(url);
-        }
-    });
-
-    tappable(".comment-body a", {
-        onTap: function(e, target) {
-            var url = target.getAttribute("href");
-            openURL(url);
+            openURL(target.getAttribute("href"));
         },
         allowClick: false
     });
