@@ -93,7 +93,6 @@ header .img { margin: 0 auto; }
     background-image: url('../img/screen2.png');
     margin: 0 auto;
     border-radius: 4px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -129,6 +128,7 @@ footer {
 
     #screens .img {
         min-height: 726px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 }
 
