@@ -1,0 +1,13 @@
+{
+	"version": {
+		"label": "v1.7",
+		"number": 1700,
+		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/1.6/Reeddit.app.zip"
+	},
+	"update": {
+		"trigger": false,
+		"title": "",
+		"message": "",
+		"date": ""
+	}
+}
