@@ -18,14 +18,16 @@
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
         noLink: "<div id='no-link'><p>No Post Selected.</div>",
-        moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>"
+        moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>",
+        updater: "<div class='new-form move-data'><div class='close-form'>close</div><h3>{{version.label}} available</h3><p>Updated on: {{update.date}}</p><p>• {{update.title}}:</p><p>{{update.message}}</p><div class='btn-general' id='btn-download' data-link='{{version.download_url}}'>Download new version</div></div>"
     };
 
     var doc = win.document,
         body = doc.body;
 
     var gui = require('nw.gui'),
-        mainWindow = gui.Window.get();
+        mainWindow = gui.Window.get(),
+        version = 1710;
 
     // Pseudo-Globals
     var currentView = 1,
@@ -1070,7 +1072,6 @@
 
     tappable(".close-form", {
         onTap: function() {
-            subsInChannel = 3;
             V.Actions.removeModal();
         }
     });
@@ -1324,5 +1325,28 @@
 
     var fs = require("fs"),
         saveLink;
+
+    // Check updates
+    setTimeout(function() {
+        ajax({
+            url: "http://mac.reedditapp.com/version.json",
+            dataType: "json",
+            success: function(data) {
+                if (!data.update.trigger || data.version.number <= version) return;
+                // show update button
+                var btnShowUpdate = $el("div", "btn-general");
+                btnShowUpdate.innerText = "New Reeddit version available";
+                btnShowUpdate.style.margin = "10px";
+                btnShowUpdate.addEventListener("click", function() {
+                    V.Actions.showModal(Mustache.to_html(T.updater, data), function() {
+                        $id("btn-download").addEventListener("click", function() {
+                            openURL(this.getAttribute("data-link"));
+                        });
+                    });
+                });
+                $prepend(V.mainWrap, btnShowUpdate);
+            }
+        });
+    }, 3000);
 
 })(window);
