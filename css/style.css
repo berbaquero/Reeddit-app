@@ -77,6 +77,12 @@ header .img { margin: 0 auto; }
     border: 1px solid #0F467F;
 }
 
+.main-button span {
+    margin-top: 5px;
+    display: block;
+    font-size: 0.8em;
+    color: #f5f5f5;
+}
 
 #screens .img {
     background-size: 100%;
