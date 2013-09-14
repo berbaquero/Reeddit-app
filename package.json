@@ -1,6 +1,6 @@
 {
   "main": "index.html",
-  "name": "Reeddit for Mac",
+  "name": "Reeddit",
   "description": "Minimal, elastic and read-only Reddit client.",
   "version": "1.6.2",
   "maintainers": [{
