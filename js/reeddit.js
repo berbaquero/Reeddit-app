@@ -1098,7 +1098,7 @@
 
     body.addEventListener("change", function(ev) {
         if (ev.target.id === "btn-import-data") {
-            var importPath = ev.value;
+            var importPath = ev.target.value;
             if (!importPath) return;
             console.log(importPath);
             fs.readFile(importPath, function(err, cont) {
