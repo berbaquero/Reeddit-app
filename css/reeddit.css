@@ -400,6 +400,7 @@ a { color: #999; }
     border-radius: 4px;
     font-weight: 700;
     text-align: center;
+    border: 0;
 }
 
 /*---------------------------- Cabecera -----------------------------*/
@@ -789,38 +790,7 @@ header > div {
     cursor: default;
 }
 
-.about-reeddit, .move-data { top: 80px; }
-
-.about-reeddit ul { list-style: none; padding: 0; }
-
-.about-reeddit li { font-size: 18px; text-align: center; }
-
-.about-reeddit li a:hover { color: inherit; }
-
-.about-reeddit li:first-child a { border-top: 0; }
-
-.about-reeddit li:last-child a { border-bottom: 0; }
-
-.about-reeddit p a { text-decoration: none; color: #777; }
-
-.about-reeddit li a {
-    text-decoration: none;
-    letter-spacing: 1px;
-    font-weight: 700;
-    text-shadow: 0 1px 1px white;
-    padding: 12px;
-    display: block;
-    border-top: 1px solid white;
-    border-bottom: 1px solid #999;
-    color: #777;
-}
-
-.about-reeddit p {
-    color: #777;
-    text-shadow: 0 1px 1px white;
-    font-size: 12px;
-    text-align: center;
-}
+.move-data { top: 80px; }
 
 .refresh-icon-FS {
     background-image: url('../img/refresh.png');
