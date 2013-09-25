@@ -1169,7 +1169,8 @@
 
     // App init
     win.onload = function() {
-        V.title.remove();
+
+        $remove(V.title);
 
         var mainWinWidth = store.getItem("win:width"),
             mainWinHeight = store.getItem("win:height"),
