@@ -1163,6 +1163,10 @@
         }
     }, false);
 
+    $q("#header-icon").addEventListener("dblclick", function() {
+        mainWindow.height = 918;
+    });
+
     // App init
     win.onload = function() {
         V.title.remove();
