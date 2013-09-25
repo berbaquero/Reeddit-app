@@ -156,6 +156,7 @@ a { color: #999; }
     border: 1px solid #bbb;
     background-color: #ddd;
     -webkit-user-select: text; user-select: text;
+    box-shadow: inset 0 1px 1px #fff;
 }
 
 #selftext p { margin-top: 5px; }
