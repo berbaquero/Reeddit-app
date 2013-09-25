@@ -1101,20 +1101,17 @@
         if (ev.target.id === "btn-import-data") {
             var importPath = ev.target.value;
             if (!importPath) return;
-            console.log(importPath);
             fs.readFile(importPath, function(err, cont) {
                 if (err) throw err;
                 else {
                     try {
                         data = JSON.parse(cont.toString());
                         if (data.subreddits) {
-                            console.log(data.subreddits);
                             refresh = true;
                             store.setItem("subreeddits", JSON.stringify(data.subreddits));
                         }
                         if (data.channels) {
                             refresh = true;
-                            console.log(data.channels);
                             store.setItem("channels", JSON.stringify(data.channels));
                         }
                         if (refresh) win.location.reload();
