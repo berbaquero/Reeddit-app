@@ -465,7 +465,7 @@
             load: function(data, baseElement, idParent) {
                 var now = new Date().getTime();
                 var converter = new Markdown.Converter();
-                var com = $el("section");
+                var com = $el("section", "", "comments-wrap");
                 for (var i = 0; i < data.length; i++) {
                     var c = data[i];
 
