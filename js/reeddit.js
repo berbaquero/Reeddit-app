@@ -17,7 +17,7 @@
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
-        noLink: "<div id='no-link'><p>No Post Selected.</div>",
+        noLink: "No Post Selected",
         moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>",
         updater: "<div class='new-form move-data'><div class='close-form'>close</div><h3>{{version.label}} available</h3><p>Updated on: {{update.date}}</p><p>• {{update.title}}:</p><p>{{update.message}}</p><div class='btn-general' id='btn-download' data-link='{{version.download_url}}'>Download new version</div></div>"
     };
@@ -27,11 +27,10 @@
 
     var gui = require('nw.gui'),
         mainWindow = gui.Window.get(),
-        version = 1710;
+        version = 1800;
 
     // Pseudo-Globals
-    var currentView = 1,
-        editingSubs = false,
+    var editingSubs = false,
         urlInit = "http://www.reddit.com/",
         urlEnd = ".json",
         urlLimitEnd = ".json?limit=30",
@@ -60,8 +59,10 @@
         },
         css = {
             showView: "show-view",
-            showMenu: "show-menu"
-        };
+            showMenu: "show-menu",
+            hide: "hide"
+        },
+        currentView = view.main;
 
     var defaultSubs = ["frontPage", "pics", "IAmA", "AskReddit", "worldNews", "todayilearned", "technology", "science", "atheism", "reactiongifs", "books", "videos", "AdviceAnimals", "funny", "aww", "earthporn"];
 
@@ -200,6 +201,8 @@
         headerIcon: $id("header-icon"),
         container: $id("container"),
         btnNavBack: $id("nav-back"),
+        footerSub: $id("footer-sub"),
+        footerPost: $id("footer-post"),
         Channels: {
             menuContainer: $id("channels"),
             add: function(channel) {
@@ -290,13 +293,13 @@
         Actions: {
             setSubTitle: function(title) {
                 $text(V.subtitleText, title);
+                $text(V.footerSub, title);
             },
-            backToMainView: function(newTitle) {
+            backToMainView: function() {
                 $addClass(V.btnNavBack, "invisible");
                 $removeClass(V.subtitle, "invisible");
                 $empty(V.headerSection);
                 $append(V.headerSection, V.headerIcon);
-                if (newTitle) V.Actions.setSubTitle(newTitle);
                 V.Anims.slideFromLeft();
             },
             moveMenu: function(direction) {
@@ -318,8 +321,9 @@
                 if (currentView === view.comments) V.Actions.backToMainView();
 
                 setTimeout(function() {
-                    $id("main-wrap").scrollTop = 0; // Go to the container top
                     var main = V.mainWrap;
+                    main.scrollTop = 0; // Go to the container top
+
                     if (subreddits) {
                         $empty(main);
                         $append(main, T.botonAgregarSubManual);
@@ -352,16 +356,15 @@
                 if (currentView === view.comments) V.Actions.backToMainView();
 
                 setTimeout(function() {
-                    $id("main-wrap").scrollTop = 0; // Up to container top
+                    V.mainWrap.scrollTop = 0; // Up to container top
                     var htmlSubs = Mustache.to_html(T.Subreddits.toRemoveList, M.Subreddits.list);
                     var htmlChannels = '';
                     if (M.Channels.list && M.Channels.list.length > 0) {
                         htmlChannels = Mustache.to_html(T.Channels.toRemoveList, M.Channels.list);
                     }
                     var html = '<div id="remove-wrap">' + htmlSubs + htmlChannels + "</div>";
-                    setTimeout(function() { // Intentional delay / fix for iOS
-                        $id("main-wrap").innerHTML = html;
-                    }, 10);
+                    $html(V.mainWrap, html);
+
                     V.Subreddits.cleanSelected();
                     loadingLinks = false;
                 }, isLargeScreen ? 1 : 301);
@@ -395,6 +398,14 @@
                 setTimeout(function() {
                     $remove(modal);
                 }, 301);
+            },
+            setDetailFooter: function(title) {
+                $text(V.footerPost, title ? title : T.noLink);
+                var btns = $qAll("#detail-footer .btn-footer");
+                for (var i = 0, l = btns.length; i < l; i++) {
+                    if (title) $removeClass(btns[i], css.hide);
+                    else $addClass(btns[i], css.hide);
+                }
             }
         },
         Anims: {
@@ -434,7 +445,7 @@
                     $remove($id("more-links").parentNode);
                     $append(main, loader);
                 } else {
-                    $id("main-wrap").scrollTop = 0; // Sube al top del contenedor
+                    main.scrollTop = 0; // Sube al top del contenedor
                     setTimeout(function() {
                         $prepend(main, loader);
                     }, showingMenu ? 301 : 1);
@@ -536,10 +547,9 @@
                     currentThread = id;
 
                     $removeClass(V.btnNavBack, "invisible"); // Show
+
                     var detail = V.detailWrap;
                     $empty(detail);
-
-                    $id("detail-wrap").scrollTop = 0;
 
                     if (loadedLinks[id] && !refresh) {
                         $append(detail, M.Posts.list[id].summary);
@@ -560,12 +570,12 @@
                             loadingComments = false;
                         }, function() { // On Error
                             loadingComments = false;
-                            var error = 'Error loading comments. Refresh to try again.';
                             $addClass(loader, "loader-error");
-                            if (isWideScreen) $html(loader, error + '<div class="comments-button" id="wide-refresh">Refresh</div>');
-                            else $text(loader, error);
+                            $text(loader, "Error loading comments. Refresh to try again.");
                         });
                     }
+
+                    if (!refresh) V.Actions.setDetailFooter(M.Posts.list[id].title);
 
                     if (!refresh && currentView !== view.comments) V.Anims.slideFromRight();
 
@@ -679,7 +689,7 @@
                 var summaryHTML = Mustache.to_html(T.linkSummary, data);
                 var imageLink = checkImageLink(M.Posts.list[postID].url);
                 if (imageLink) { // If it's an image link
-                    summaryHTML += "<img class='image-preview' src='" + imageLink + "' />";
+                    summaryHTML += "<div class='preview-container'><img class='image-preview' src='" + imageLink + "' /></div>";
                 }
                 if (data.selftext) { // If it has selftext
                     var selfText;
@@ -696,6 +706,7 @@
                 $append(V.detailWrap, summaryHTML);
                 C.Misc.updatePostTime(data.created_utc);
                 M.Posts.list[postID].summary = summaryHTML;
+                $text(V.footerPost, data.title);
             },
             updatePostSummary: function(data, postID) {
                 $id("summary-comment-num").innerText = data.num_comments + (data.num_comments === 1 ? ' comment' : ' comments');
@@ -735,8 +746,8 @@
         editingSubs = editing;
         if (isWideScreen) {
             // If it's showing the add or remove subreddits/channels panel, hide the refresh button
-            var refreshButton = $q('.refresh-icon-FS');
-            refreshButton.style.display = editing ? 'none' : '';
+            var refreshBtn = $q('#main-footer .footer-refresh');
+            refreshBtn.style.display = editing ? 'none' : '';
         }
     }
 
@@ -913,29 +924,38 @@
             C.Subreddits.loadPosts(sub.firstChild.textContent);
             V.Subreddits.cleanSelected();
             $addClass(sub, "sub-active");
-            if (currentView === view.comments) {
-                V.Actions.backToMainView();
-            }
+            if (currentView === view.comments) V.Actions.backToMainView();
         },
         allowClick: false,
         activeClassDelay: 100,
         activeClass: 'link-active'
     });
 
-    tappable("#nav-back", {
+    tappable(".btn-to-main", {
         onTap: function() {
             location.hash = "#";
         }
     });
 
-    tappable(".refresh", {
-        onTap: function() {
-            if (currentView === view.comments) {
-                if (!currentThread) return;
-                C.Comments.show(currentThread, true);
-            }
-            if (currentView === view.main && !editingSubs) {
-                refreshCurrentStream();
+    tappable(".btn-refresh", {
+        onTap: function(e) {
+            var origin = e.target.getAttribute("data-origin");
+            switch (origin) {
+                case "footer-main":
+                    refreshCurrentStream();
+                    break;
+                case "footer-detail":
+                    if (!currentThread) return;
+                    C.Comments.show(currentThread, true);
+                    break;
+                default:
+                    if (currentView === view.comments) {
+                        if (!currentThread) return;
+                        C.Comments.show(currentThread, true);
+                    }
+                    if (currentView === view.main) {
+                        refreshCurrentStream();
+                    }
             }
         }
     });
@@ -965,14 +985,6 @@
         },
         activeClass: 'button-active',
         activeClassDelay: 100
-    });
-
-    tappable("#wide-refresh", {
-        onTap: function() {
-            if (!currentThread) return;
-            C.Comments.show(currentThread, true);
-        },
-        activeClass: 'replies-button-active'
     });
 
     tappable("#sub-title", {
@@ -1136,24 +1148,15 @@
         else viewMenuPostsAndComments.checked = true;
     }, false);
 
-    if (location.hash) location.hash = ''; // Clear hash at first app loading
     // Pseudo-hash-router
     win.addEventListener('hashchange', function() {
-        if (location.hash === '') {
-            var delay = 1;
-            if (currentView === view.comments) {
-                V.Actions.backToMainView();
-                delay = 301;
-            }
-            if (isWideScreen) {
-                $removeClass($q('link-selected'), 'link-selected');
-                $html(V.detailWrap, T.noLink);
-            } else {
-                setTimeout(function() {
-                    if (isLargeScreen) V.Actions.backToMainView();
-                    else $empty(V.detailWrap);
-                }, delay);
-            }
+        if (location.hash === "") {
+            V.Actions.backToMainView();
+            $removeClass($q('.link-selected'), 'link-selected');
+            V.Actions.setDetailFooter("");
+            setTimeout(function() {
+                $empty(V.detailWrap);
+            }, isWideScreen ? 1 : 301);
         } else {
             var match = location.hash.match(/(#comments:)((?:[a-zA-Z0-9]*))/);
             if (match && match[2]) {
@@ -1187,7 +1190,7 @@
             mainWindow.y = mainWinY;
         }
 
-        if (isWideScreen) $html(V.detailWrap, T.noLink);
+        if (checkWideScreen()) $text(V.footerPost, T.noLink);
 
         M.currentSelection.loadSaved();
 
