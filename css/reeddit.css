@@ -59,12 +59,12 @@ a { color: #999; }
 
 /*--------------------- Comentarios ----------------------*/
 
-#comments-wrap {
+#comments-container {
     max-width: 600px;
     margin: 0 auto;
 }
 
-#detail-wrap > section > .comment-wrap { padding-right: 10px; border-left: 0; }
+#comments-container > .comments-level > .comment-wrap { padding-right: 10px; border-left: 0; }
 
 .comment-wrap {
     padding: 10px 0 10px 10px;
@@ -94,7 +94,7 @@ a { color: #999; }
 
 .comment-body p { margin: 10px 0; color: #3D525E; }
 
-#link-summary { background-color: #3C444C; padding: 10px 0 0; }
+#link-summary { background-color: #3C444C; padding-top: 10px; }
 
 #link-summary p { margin: 0; padding-left: 10px; }
 

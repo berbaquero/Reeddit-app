@@ -12,7 +12,7 @@
             single: '<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>',
             list: '{{#.}}<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>{{/.}}'
         },
-        linkSummary: "<section><div id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></div></section>",
+        linkSummary: "<section id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></section>",
         botonAgregarSubManual: "<div class='top-buttons'><div id='btn-sub-man'>Insert Manually</div><div id='btn-add-channel'>Create Channel</div></div>",
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
@@ -474,9 +474,10 @@
         },
         Comments: {
             load: function(data, baseElement, idParent) {
-                var now = new Date().getTime();
-                var converter = new Markdown.Converter();
-                var com = $el("section", "", "comments-wrap");
+                var now = new Date().getTime(),
+                    converter = new Markdown.Converter(),
+                    comments = $el("section", "comments-level");
+
                 for (var i = 0; i < data.length; i++) {
                     var c = data[i];
 
@@ -513,22 +514,22 @@
                     $append(comment, cBody);
 
                     if (c.data.replies) {
-                        var replySpan = $el("span", "comments-button");
-                        $addClass(replySpan, "replies-button");
-                        replySpan.setAttribute("data-comment-id", c.data.id);
-                        $text(replySpan, "See replies");
+                        var btnReply = $el("span", "comments-button");
+                        $addClass(btnReply, "replies-button");
+                        btnReply.setAttribute("data-comment-id", c.data.id);
+                        $text(btnReply, "See replies");
 
-                        $append(comment, replySpan);
+                        $append(comment, btnReply);
 
                         replies[c.data.id] = c.data.replies.data.children;
                     }
 
-                    $append(com, comment);
+                    $append(comments, comment);
                 }
 
-                $append(baseElement, com);
+                $append(baseElement, comments);
 
-                if (idParent) loadedLinks[idParent] = com;
+                if (idParent) loadedLinks[idParent] = comments;
 
             },
             show: function(id, refresh) {
@@ -553,7 +554,7 @@
 
                     if (loadedLinks[id] && !refresh) {
                         $append(detail, M.Posts.list[id].summary);
-                        $append(detail, loadedLinks[id]);
+                        $append($id("comments-container"), loadedLinks[id]);
                         C.Misc.updatePostSummary(M.Posts.list[id], id);
                         loadingComments = false;
                     } else {
@@ -566,7 +567,7 @@
                             C.Misc.updatePostSummary(result[0].data.children[0].data, id);
                             $remove(loader);
                             var comments = result[1].data.children;
-                            C.Comments.load(comments, detail, id);
+                            C.Comments.load(comments, $id("comments-container"), id);
                             loadingComments = false;
                         }, function() { // On Error
                             loadingComments = false;
@@ -689,7 +690,7 @@
                 var summaryHTML = Mustache.to_html(T.linkSummary, data);
                 var imageLink = checkImageLink(M.Posts.list[postID].url);
                 if (imageLink) { // If it's an image link
-                    summaryHTML += "<div class='preview-container'><img class='image-preview' src='" + imageLink + "' /></div>";
+                    summaryHTML += "<section class='preview-container'><img class='image-preview' src='" + imageLink + "' /></section>";
                 }
                 if (data.selftext) { // If it has selftext
                     var selfText;
@@ -701,8 +702,9 @@
                         M.Posts.list[postID].selftext = selfText;
                         M.Posts.list[postID].selftextParsed = true;
                     }
-                    summaryHTML += "<div id='selftext'>" + selfText + "</div>";
+                    summaryHTML += "<section id='selftext'>" + selfText + "</section>";
                 }
+                summaryHTML += "<section id='comments-container'></section>";
                 $append(V.detailWrap, summaryHTML);
                 C.Misc.updatePostTime(data.created_utc);
                 M.Posts.list[postID].summary = summaryHTML;
