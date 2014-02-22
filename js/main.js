@@ -14,3 +14,7 @@ ajax({
 		btn.appendChild(message);
 	}
 });
+
+function loadAnim() {
+	document.querySelector("#screens .img").classList.add("slide-in");
+}

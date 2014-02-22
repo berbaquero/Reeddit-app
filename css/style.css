@@ -19,7 +19,6 @@ section {
     padding: 10px;
 }
 
-
 header {
     text-align: center;
     margin-top: 20px;
@@ -30,8 +29,6 @@ header h1, header p { color: #555; }
 
 header .img { margin: 0 auto; }
 
-
-
 .img { background-repeat: no-repeat; }
 
 #icon {
@@ -41,20 +38,22 @@ header .img { margin: 0 auto; }
     height: 60px;
 }
 
+#screens .img { opacity: 0; }
+
 .button {
-	padding: 10px;
-	border-radius: 5px;
-	font-weight: bold;
-	-webkit-transition-duration: 100ms;
-	transition-duration: 100ms;
-	display: block;
-	text-align: center;
-	width: 50%;
-	margin: 0 auto 10px;
-	border: 1px solid #999;
-	background-color: #d7d7d7;
-	color: #eee;
-	max-width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    -webkit-transition-duration: 100ms;
+    transition-duration: 100ms;
+    display: block;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto 10px;
+    border: 1px solid #999;
+    background-color: #d7d7d7;
+    color: #eee;
+    max-width: 300px;
 }
 
 .button:active {
@@ -84,8 +83,7 @@ header .img { margin: 0 auto; }
     color: #f5f5f5;
 }
 
-#screens .img {
-    background-size: 100%;
+#screens .img {    background-size: 100%;
     width: 100%;
     max-width: 492px;
     min-height: 442px;
@@ -97,8 +95,9 @@ header .img { margin: 0 auto; }
 
 
 footer {
-    padding: 20px;
+    padding: 10px 20px;
     text-align: center;
+    background-color: #222;
 }
 
 #me {
@@ -113,8 +112,45 @@ footer {
     color: #999;
 }
 
+#twitter {
+    margin: 35px 0;
+    text-align: center;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    -webkit-transform: translateX(-30px);
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes slidein {
+  from {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-name: slidein;
+    -webkit-animation-fill-mode: both;
+    animation-duration: 1.5s;
+    animation-name: slidein;
+    animation-fill-mode: both;
+}
+
 @media only screen and (min-width: 480px) {
-	#screens .img {
+    #screens .img {
         min-height: 680px;
     }
 }
@@ -124,68 +160,60 @@ footer {
     header p {
         width: 70%;
         margin: 0 auto 20px;
+        line-height: 25px;
     }
 
-    #screens .img {
-        min-height: 726px;
+    #screens .img {        min-height: 726px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 }
 
 @media only screen and (min-width: 960px) {
-    body {
+    body {        
         background-image: url('../img/galaxy.jpg');
         background-repeat: no-repeat;
         background-size: 1600px 550px;
-        background-position: 50% 22%;
     }
 
-    header {
-        width: 45%;
-        float: left;
-        margin: 0;
-        margin-top: 160px;
+    header {        
+        margin: 0 auto;
+        margin-top: 30px;
     }
 
     header h1, header p {
         color: #eee;
         text-shadow: 0 1px 3px #000;
-	}
-
-    #screens {
-        width: 50%;
-        float: left;
-        margin-top: 20px;
     }
 
     #screens .img {
-    	margin: 0;
         width: 492px;
-		min-height: 657px;
-    	background-image: url('../img/screen1.png');
+        min-height: 657px;
+        background-image: url('../img/screen1.png');
     }
 
-    footer { clear: both; }
+    #twitter {
+        margin: 70px 0;
+    }
 }
 
 @media only screen and (min-width: 960px) and (min-height: 850px) {
-	body {
-        background-size: 1600px 550px;
-        background-position: 50% 37%;
-	}
 
-	header {
-        margin-top: 250px;
-    }
-
-	#screens {
+    #screens {
+        margin: 0 auto;
         margin-top: 30px;
     }
 
-	#screens .img {
-    	background-image: url('../img/screen2.png');
-    	background-size: 492px 726px;
-    	height: 726px;
-    	min-height: 726px;
+    #screens .img {     
+        background-image: url('../img/screen2.png');
+        background-size: 492px 726px;
+        height: 726px;
+        min-height: 726px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    
+    body {
+        background-size: 100% 550px; 
     }
 }
