@@ -80,7 +80,27 @@ a { color: #999; }
 
 .comment-author p { color: #D43030; font-weight: 700; }
 
-.comment-poster p { color: #F75433; font-weight: 700; }
+.comment-poster { position: relative; }
+
+.comment-poster::before {
+    content: "OP";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    color: #D43030;
+    border: 1px solid #D43030;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.comment-poster p {
+    color: #D43030;
+    font-weight: 700;
+    position: relative;
+    left: 28px;
+}
 
 .comment-info { text-align: right; width: 50%; }
 
