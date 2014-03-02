@@ -22,7 +22,7 @@ var screen = {
 	max: 3,
 	switch: function() {
 		var next = screen.current + 1;
-		if (next > screen.max || (next >= 3 && window.innerWidth < 960)) {
+		if (next > screen.max || (next >= 3 && !screen.isWide())) {
 			next = 1;
 		}
 
@@ -37,12 +37,31 @@ var screen = {
 	},
 	slideIn: function() {
 		screen.container.classList.add("slide-in");
+	},
+	isWide: function() {
+		return window.innerWidth >= 960;
 	}
 };
+
+function preloadScreens() {
+	var p1 = document.createElement("span");
+	p1.className = "preload";
+	p1.classList.add("screen1");
+	document.body.appendChild(p1);
+
+	if (screen.isWide()) {
+		var p3 = document.createElement("span");
+		p3.className = "preload";
+		p3.classList.add("screen3");
+		document.body.appendChild(p3);
+	}
+}
 
 function loadAnim() {
 	screen.slideIn();
 	screen.container.addEventListener("click", function() {
 		screen.switch();
 	});
+
+	preloadScreens();
 }

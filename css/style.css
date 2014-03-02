@@ -172,6 +172,12 @@ footer {
     animation-fill-mode: both;
 }
 
+.preload {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
 @media only screen and (min-width: 530px) {
 
     header p {
