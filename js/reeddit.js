@@ -786,7 +786,7 @@
 
     var openURL = function(url) {
         gui.Shell.openExternal(url);
-    }
+    };
 
     var openWindow = function(url, width, height) {
         gui.Window.open(url, {
@@ -797,11 +797,11 @@
             toolbar: false,
             resize: true
         });
-    }
+    };
 
     var importExportData = function() {
         V.Actions.showModal(T.moveData);
-    }
+    };
 
     var saveData = function() {
         var data = "{\"channels\": " + store.getItem("channels") + ", \"subreddits\": " + store.getItem("subreeddits") + "}";
@@ -816,7 +816,7 @@
                 saveLink.click();
             }
         });
-    }
+    };
 
     // Taps
     tappable("#btn-save-data", saveData);
