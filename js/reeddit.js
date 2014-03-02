@@ -513,7 +513,7 @@
                     $append(comment, wrap);
                     $append(comment, cBody);
 
-                    if (c.data.replies) {
+                    if (c.data.replies && c.data.replies.data.children[0].kind !== "more") {
                         var btnReply = $el("span", "comments-button");
                         $addClass(btnReply, "replies-button");
                         btnReply.setAttribute("data-comment-id", c.data.id);
