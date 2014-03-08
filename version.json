@@ -1,13 +1,13 @@
 {
 	"version": {
-		"label": "v1.8",
-		"number": 1800,
-		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.8/Reeddit.app.zip"
+		"label": "v1.8.1",
+		"number": 1810,
+		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.8.1/Reeddit.app.zip"
 	},
 	"update": {
-		"trigger": true,
-		"title": "New 3-column footer bar",
-		"message": "New bottom bar for the 3-column layout, plus some small interface enhancements.",
-		"date": "October 1st, 2013"
+		"trigger": false,
+		"title": "UX and UI enhancements",
+		"message": "General user-experience improvements.",
+		"date": "March 8th, 2014"
 	}
 }
