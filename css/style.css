@@ -5,9 +5,12 @@
 }
 
 body {
-    border-top: 5px solid #1460AC;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
+    background: -webkit-linear-gradient(#091322 1%, #34506C 20%, #E6E6E6 30%, #F2F8FC 70%, #fff 95%);
+    background: -moz-linear-gradient(#091322 1%, #34506C 20%, #E6E6E6 30%, #F2F8FC 70%, #fff 95%);
+    background: -o-linear-gradient(#091322 1%, #34506C 20%, #E6E6E6 30%, #F2F8FC 70%, #fff 95%);
+    background: linear-gradient(#091322 1%, #34506C 20%, #E6E6E6 30%, #F2F8FC 70%, #fff 95%);
 }
 
 a {
@@ -23,7 +26,8 @@ header {
 
 header h1,
 header p {
-    color: #555;
+    color: #eee;
+    text-shadow: 0 1px 3px #000;
 }
 
 header .img { margin: 0 auto; }
@@ -198,20 +202,17 @@ footer {
 }
 
 @media only screen and (min-width: 960px) {
+    
     body {
-        background-image: url('../img/galaxy.jpg');
-        background-repeat: no-repeat;
-        background-size: 1600px 550px;
+        background: -webkit-linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
+        background: -moz-linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
+        background: -o-linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
+        background: linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
     }
 
-    header {        
+    header {
         margin: 0 auto;
         margin-top: 30px;
-    }
-
-    header h1, header p {
-        color: #eee;
-        text-shadow: 0 1px 3px #000;
     }
 
     .screen1 {
@@ -225,12 +226,9 @@ footer {
     .screen3 {
         background-image: url('../img/screen3.png');
     }
-}
 
-@media only screen and (min-width: 1600px) {
-    
-    body {
-        background-size: 100% 550px; 
+    #twitter {
+        border-top: 0;
     }
 }
 
