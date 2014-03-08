@@ -776,6 +776,7 @@
     }
 
     function refreshCurrentStream() {
+        if (editingSubs) return;
         doByCurrentSelection(function() { // if it's subreddit
             if (M.currentSelection.name.toUpperCase() === 'frontPage'.toUpperCase()) C.Posts.load(urlInit + "r/" + M.Subreddits.getAllString() + "/");
             else C.Posts.load(urlInit + "r/" + M.currentSelection.name + "/");
