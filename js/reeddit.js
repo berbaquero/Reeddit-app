@@ -13,7 +13,6 @@
             list: '{{#.}}<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>{{/.}}'
         },
         linkSummary: "<section id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></section>",
-        botonAgregarSubManual: "<div class='top-buttons'><div id='btn-sub-man'>Insert Manually</div><div id='btn-add-channel'>Create Channel</div></div>",
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
@@ -326,18 +325,16 @@
 
                     if (subreddits) {
                         $empty(main);
-                        $append(main, T.botonAgregarSubManual);
                         $append(main, subreddits);
                         $append(main, T.botonCargarMasSubs);
                     } else {
                         var loader = $el("div", "loader");
                         $prepend(main, loader);
-                        $prepend(main, T.botonAgregarSubManual);
+
                         JSONP.get(urlInit + "reddits/.json?limit=50", function(list) {
                             M.Subreddits.idLast = list.data.after;
                             subreddits = Mustache.to_html(T.Subreddits.toAddList, list.data);
                             $empty(main);
-                            $append(main, T.botonAgregarSubManual);
                             $append(main, subreddits);
                             $append(main, T.botonCargarMasSubs);
                         }, function() { // On Error
