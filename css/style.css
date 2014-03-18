@@ -189,7 +189,7 @@ footer {
         margin: 0 auto 20px;
         line-height: 25px;
     }
-    
+
     #screens .img {
         height: 700px;
     }
@@ -202,7 +202,7 @@ footer {
 }
 
 @media only screen and (min-width: 960px) {
-    
+
     body {
         background: -webkit-linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
         background: -moz-linear-gradient(#091322 10px, #34506C 450px, #E6E6E6 970px, #F2F8FC 70%, #fff 95%);
@@ -232,7 +232,7 @@ footer {
     }
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+@media only screen and (-webkit-min-device-pixel-ratio:1.5), (min--moz-device-pixel-ratio:1.5), (-o-min-device-pixel-ratio:1.5/1), (min-device-pixel-ratio:1.5), (min-resolution:138dpi), (min-resolution:1.5dppx) {
     .screen1 {
         background-image: url('../img/screen1@2x.png');
     }
