@@ -996,8 +996,8 @@
     });
 
     tappable("#add-new-sub", {
-        onTap: function() {
-            V.Actions.loadForAdding();
+        onTap: function(e) {
+            subsMenu.popup(e.x, e.y - 70);
         }
     });
 
@@ -1167,7 +1167,7 @@
     }, false);
 
     $q("#header-icon").addEventListener("dblclick", function() {
-        mainWindow.height = 918;
+        mainWindow.height = 1048;
     });
 
     // App init
@@ -1248,26 +1248,51 @@
         }
     }));
 
+    var subsMenu = new gui.Menu();
+    subsMenu.append(new gui.MenuItem({
+        label: "Add Subreddit from List",
+        click: V.Actions.loadForAdding
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        label: "Add Subreddit Manually",
+        click: V.Subreddits.showManualInput
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        type: 'separator'
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        label: 'Create Channel',
+        click: V.Channels.showNewChannelForm
+    }));
+
     // Title Menu
     var submenu = new gui.Menu();
     submenu.append(new gui.MenuItem({
         label: 'Add Subscriptions',
         click: V.Actions.loadForAdding
     }));
+
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Insert Subreddit Manually',
         click: V.Subreddits.showManualInput
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Create Channel',
         click: V.Channels.showNewChannelForm
     }));
+
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Remove Subscriptions',
         click: V.Actions.loadForRemoving
@@ -1275,17 +1300,21 @@
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Import & Export Data',
         click: importExportData
     }));
+
     var menu = new gui.Menu({
         type: 'menubar'
     });
+
     menu.append(new gui.MenuItem({
         label: 'Subscriptions',
         submenu: submenu
     }));
+
     var viewSubmenu = new gui.Menu(),
         viewOnlyPosts = new gui.MenuItem({
             label: 'Only Posts',
