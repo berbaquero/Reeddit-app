@@ -13,7 +13,6 @@
             list: '{{#.}}<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>{{/.}}'
         },
         linkSummary: "<section id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></section>",
-        botonAgregarSubManual: "<div class='top-buttons'><div id='btn-sub-man'>Insert Manually</div><div id='btn-add-channel'>Create Channel</div></div>",
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
@@ -326,18 +325,16 @@
 
                     if (subreddits) {
                         $empty(main);
-                        $append(main, T.botonAgregarSubManual);
                         $append(main, subreddits);
                         $append(main, T.botonCargarMasSubs);
                     } else {
                         var loader = $el("div", "loader");
                         $prepend(main, loader);
-                        $prepend(main, T.botonAgregarSubManual);
+
                         JSONP.get(urlInit + "reddits/.json?limit=50", function(list) {
                             M.Subreddits.idLast = list.data.after;
                             subreddits = Mustache.to_html(T.Subreddits.toAddList, list.data);
                             $empty(main);
-                            $append(main, T.botonAgregarSubManual);
                             $append(main, subreddits);
                             $append(main, T.botonCargarMasSubs);
                         }, function() { // On Error
@@ -999,8 +996,8 @@
     });
 
     tappable("#add-new-sub", {
-        onTap: function() {
-            V.Actions.loadForAdding();
+        onTap: function(e) {
+            subsMenu.popup(e.x, e.y - 70);
         }
     });
 
@@ -1170,7 +1167,7 @@
     }, false);
 
     $q("#header-icon").addEventListener("dblclick", function() {
-        mainWindow.height = 918;
+        mainWindow.height = 1048;
     });
 
     // App init
@@ -1251,26 +1248,51 @@
         }
     }));
 
+    var subsMenu = new gui.Menu();
+    subsMenu.append(new gui.MenuItem({
+        label: "Add Subreddit from List",
+        click: V.Actions.loadForAdding
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        label: "Add Subreddit Manually",
+        click: V.Subreddits.showManualInput
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        type: 'separator'
+    }));
+
+    subsMenu.append(new gui.MenuItem({
+        label: 'Create Channel',
+        click: V.Channels.showNewChannelForm
+    }));
+
     // Title Menu
     var submenu = new gui.Menu();
     submenu.append(new gui.MenuItem({
         label: 'Add Subscriptions',
         click: V.Actions.loadForAdding
     }));
+
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Insert Subreddit Manually',
         click: V.Subreddits.showManualInput
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Create Channel',
         click: V.Channels.showNewChannelForm
     }));
+
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Remove Subscriptions',
         click: V.Actions.loadForRemoving
@@ -1278,17 +1300,21 @@
     submenu.append(new gui.MenuItem({
         type: 'separator'
     }));
+
     submenu.append(new gui.MenuItem({
         label: 'Import & Export Data',
         click: importExportData
     }));
+
     var menu = new gui.Menu({
         type: 'menubar'
     });
+
     menu.append(new gui.MenuItem({
         label: 'Subscriptions',
         submenu: submenu
     }));
+
     var viewSubmenu = new gui.Menu(),
         viewOnlyPosts = new gui.MenuItem({
             label: 'Only Posts',
