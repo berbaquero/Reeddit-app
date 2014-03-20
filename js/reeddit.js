@@ -286,7 +286,7 @@
                 }
                 // Remove 'More links' button if there are less than 30 links
                 if (linksCount < 30) $remove($id("more-links").parentNode);
-                if (!paging) V.Anims.reveal();
+                if (!paging) V.Anims.reveal(main);
             }
         },
         Actions: {
@@ -377,11 +377,12 @@
                 setTimeout(function() {
                     if (esModal) return;
                     var modal = $el("div", '', "modal");
+                    $append(modal, template);
                     $append(body, modal);
-                    $append(body, template);
                     esModal = true;
                     setTimeout(function() {
                         modal.style.opacity = 1;
+                        V.Anims.bounceInDown($q(".new-form"));
                     }, 1);
                     if (callback) callback();
                 }, delay);
@@ -389,8 +390,6 @@
             removeModal: function() {
                 var modal = $id('modal');
                 modal.style.opacity = '';
-                $remove($q('.close-form'));
-                $remove($q('.new-form'));
                 esModal = false;
                 setTimeout(function() {
                     $remove(modal);
@@ -406,24 +405,53 @@
             }
         },
         Anims: {
+
             slideFromLeft: function() {
                 var show = css.showView;
                 $addClass(V.mainView, show);
                 $removeClass(V.detailView, show);
                 currentView = view.main;
             },
+
             slideFromRight: function() {
                 var show = css.showView;
                 $removeClass(V.mainView, show);
                 $addClass(V.detailView, show);
                 currentView = view.comments;
             },
-            reveal: function() {
-                var wrap = V.mainWrap;
-                $addClass(wrap, "anim-reveal");
+
+            reveal: function(el) {
+                var reveal = "anim-reveal";
+                $addClass(el, reveal);
                 setTimeout(function() {
-                    $removeClass(wrap, "anim-reveal");
+                    $removeClass(el, reveal);
                 }, 700);
+            },
+
+            shake: function(el) {
+                var shake = "anim-shake";
+                $addClass(el, shake);
+                setTimeout(function() {
+                    $removeClass(el, shake);
+                }, 350);
+            },
+
+            shakeForm: function() {
+                V.Anims.shake($q(".new-form"));
+            },
+
+            bounceOut: function(el, callback) {
+                var bounceOut = "anim-bounce-out";
+                $addClass(el, bounceOut);
+                if (callback) setTimeout(callback, 1000);
+            },
+
+            bounceInDown: function(el) {
+                $addClass(el, "anim-bounceInDown");
+                setTimeout(function() {
+                    el.style.opacity = 1;
+                    $removeClass(el, "anim-bounceInDown");
+                }, 500);
             }
         }
     };
@@ -618,9 +646,12 @@
                     subName = txtSub.value;
                 if (!subName) {
                     txtSub.setAttribute("placeholder", "Enter a subreddit title!");
+                    V.Anims.shakeForm();
                     return;
                 }
-                V.Actions.removeModal();
+
+                V.Anims.bounceOut($q(".new-form"), V.Actions.removeModal);
+
                 JSONP.get(urlInit + "r/" + subName + "/" + C.Sorting.get() + urlLimitEnd, function(data) {
                     C.Posts.loadFromManualInput(data);
                     V.Actions.setSubTitle(subName);
@@ -843,6 +874,7 @@
             var channelName = txtChannelName.value;
             if (!channelName) {
                 txtChannelName.setAttribute("placeholder", "Enter a Channel name!");
+                V.Anims.shakeForm();
                 return;
             }
 
@@ -855,6 +887,7 @@
             }
             if (subreddits.length === 0) {
                 subs[0].placeholder = "Enter at least one subreddit!";
+                V.Anims.shakeForm();
                 return;
             }
 
@@ -863,6 +896,7 @@
             if (savedChannel) { // If it's already saved
                 txtChannelName.value = "";
                 txtChannelName.setAttribute("placeholder", "'" + channelName + "' already exists.");
+                V.Anims.shakeForm();
                 return;
             }
 
@@ -874,10 +908,8 @@
             // confirmation feedback
             $remove(target);
             $append($q(".form-left-corner"), "<p class='channel-added-msg'>'" + channel.name + "' added. Cool!</p>");
-            // remove modal after a moment
-            setTimeout(function() {
-                V.Actions.removeModal();
-            }, 1500);
+
+            V.Anims.bounceOut($q(".new-form"), V.Actions.removeModal);
         },
         activeClass: "btn-general-active"
     });
