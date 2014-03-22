@@ -621,7 +621,7 @@ header > div {
     margin-left: -150px;
 }
 
-#form-new-channel { min-height: 160px; top: 55px; }
+#form-new-channel { min-height: 160px; top: 85px; }
 
 #form-new-channel input {
     width: 100%;
