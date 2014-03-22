@@ -1074,7 +1074,7 @@
             var main = V.mainWrap,
                 loader = $el("div", "loader");
             $append(main, loader);
-            JSONP.get(urlInit + 'reddits/' + urlEnd + '&after=' + M.Subreddits.idLast, function(list) {
+            JSONP.get(urlInit + 'reddits/' + urlEnd + '?&after=' + M.Subreddits.idLast, function(list) {
                 var nuevosSubs = Mustache.to_html(T.Subreddits.toAddList, list.data);
                 M.Subreddits.idLast = list.data.after;
                 $remove(loader);
@@ -1083,7 +1083,7 @@
                 subreddits = subreddits + nuevosSubs;
             }, function() {
                 $addClass(loader, "loader-error");
-                $text(loader, 'Error loading more subreddits. Refresh to try again.');
+                $text(loader, 'Error loading more subreddits.');
             });
         },
         activeClass: 'list-button-active'
