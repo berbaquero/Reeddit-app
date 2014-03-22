@@ -36,7 +36,7 @@
         loadedLinks = {},
         replies = {},
         showingMenu = false,
-        subreddits, store = win.localStorage,
+        store = win.localStorage,
         esModal = false,
         loadingComments = false,
         loadingLinks = false,
@@ -251,7 +251,15 @@
                 V.Actions.showModal(T.formAgregarSubManual, function() {
                     $id('txt-new-sub').focus();
                 });
-            }
+            },
+            showAddingList: function() {
+                var main = V.mainWrap;
+                $empty(main);
+                $append(main, V.Subreddits.addingList);
+                $append(main, T.botonCargarMasSubs);
+                V.Anims.reveal(main);
+            },
+            addingList: ''
         },
         Posts: {
             show: function(links, paging) { // links: API raw data
@@ -323,20 +331,16 @@
                     var main = V.mainWrap;
                     main.scrollTop = 0; // Go to the container top
 
-                    if (subreddits) {
-                        $empty(main);
-                        $append(main, subreddits);
-                        $append(main, T.botonCargarMasSubs);
+                    if (V.Subreddits.addingList) { // is cache'd
+                        V.Subreddits.showAddingList();
                     } else {
                         var loader = $el("div", "loader");
                         $prepend(main, loader);
 
                         JSONP.get(urlInit + "reddits/.json?limit=50", function(list) {
                             M.Subreddits.idLast = list.data.after;
-                            subreddits = Mustache.to_html(T.Subreddits.toAddList, list.data);
-                            $empty(main);
-                            $append(main, subreddits);
-                            $append(main, T.botonCargarMasSubs);
+                            V.Subreddits.addingList = Mustache.to_html(T.Subreddits.toAddList, list.data);
+                            V.Subreddits.showAddingList();
                         }, function() { // On Error
                             $addClass(loader, "loader-error");
                             $text(loader, "Error loading subreddits.");
@@ -361,6 +365,7 @@
                     }
                     var html = '<div id="remove-wrap">' + htmlSubs + htmlChannels + "</div>";
                     $html(V.mainWrap, html);
+                    V.Anims.reveal(V.mainWrap);
 
                     V.Subreddits.cleanSelected();
                     loadingLinks = false;
@@ -1034,9 +1039,7 @@
     });
 
     tappable("#remove-sub", {
-        onTap: function() {
-            V.Actions.loadForRemoving();
-        }
+        onTap: V.Actions.loadForRemoving
     });
 
     tappable("#more-links", {
@@ -1074,16 +1077,16 @@
             var main = V.mainWrap,
                 loader = $el("div", "loader");
             $append(main, loader);
-            JSONP.get(urlInit + 'reddits/' + urlEnd + '&after=' + M.Subreddits.idLast, function(list) {
+            JSONP.get(urlInit + 'reddits/' + urlEnd + '?&after=' + M.Subreddits.idLast, function(list) {
                 var nuevosSubs = Mustache.to_html(T.Subreddits.toAddList, list.data);
                 M.Subreddits.idLast = list.data.after;
                 $remove(loader);
                 $append(main, nuevosSubs);
                 $append(main, T.botonCargarMasSubs);
-                subreddits = subreddits + nuevosSubs;
+                V.Subreddits.addingList += nuevosSubs;
             }, function() {
                 $addClass(loader, "loader-error");
-                $text(loader, 'Error loading more subreddits. Refresh to try again.');
+                $text(loader, 'Error loading more subreddits.');
             });
         },
         activeClass: 'list-button-active'
