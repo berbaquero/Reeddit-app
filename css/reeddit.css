@@ -579,6 +579,10 @@ header > div {
     width: 100%;
 }
 
+.subreddit p {
+    cursor: default;
+}
+
 .subreddit > div:first-child {
     width: 85%;
     padding: 10px 5px 10px 0;
@@ -707,6 +711,7 @@ header > div {
     border-top: 1px solid white;
     -webkit-box-align: center; box-align: center;
     height: 60px;
+    cursor: default;
 }
 
 .item-to-remove > p {
