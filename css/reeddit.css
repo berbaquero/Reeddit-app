@@ -78,7 +78,7 @@ a { color: #999; }
 
 .comment-data > div { -webkit-box-flex: 1; box-flex: 1; width: 50%; }
 
-.comment-author p { color: #D43030; font-weight: 700; }
+.comment-author p { color: #eb4d5c; font-weight: 700; }
 
 .comment-poster { position: relative; }
 
@@ -87,8 +87,8 @@ a { color: #999; }
     position: absolute;
     top: -2px;
     left: 0;
-    color: #D43030;
-    border: 1px solid #D43030;
+    color: #eb4d5c;
+    border: 1px solid #eb4d5c;
     padding: 2px 4px;
     border-radius: 2px;
     font-size: 10px;
@@ -96,7 +96,7 @@ a { color: #999; }
 }
 
 .comment-poster p {
-    color: #D43030;
+    color: #eb4d5c;
     font-weight: 700;
     position: relative;
     left: 28px;
@@ -125,7 +125,10 @@ a { color: #999; }
 
 #summary-time { color: white; text-align: center; }
 
-#summary-domain { color: #F75433; display: inline; }
+#summary-domain {
+    color: #F7545E;
+    display: inline;
+}
 
 #summary-author {
     color: #E2E2E0; font-weight: 700;
@@ -344,7 +347,7 @@ a { color: #999; }
     width: 67%;
 }
 
-.link-domain { margin: 0; color: #D43030; }
+.link-domain { margin: 0; color: #eb4d5c; }
 
 .link-sub { margin: 0; color: #777; display: inline; }
 
@@ -1113,7 +1116,8 @@ header > div {
 
 /* Wide-ass stuff */
 @media only screen and (min-width: 1150px) {
-    #main-menu, #edit-subs {
+    #main-menu,
+    #edit-subs {
         width: 180px;
     }
 
