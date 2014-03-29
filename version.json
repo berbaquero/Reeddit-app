@@ -1,13 +1,13 @@
 {
 	"version": {
-		"label": "v1.8.1",
-		"number": 1810,
-		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.8.1/Reeddit.app.zip"
+		"label": "v1.9",
+		"number": 1900,
+		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9/Reeddit.app.zip"
 	},
 	"update": {
 		"trigger": false,
-		"title": "UX and UI enhancements",
-		"message": "General user-experience improvements.",
-		"date": "March 8th, 2014"
+		"title": "Edit Channels",
+		"message": "Change the name of a Channel. Add, edit, or remove its containing subreddits.",
+		"date": "March 29th, 2014"
 	}
 }
