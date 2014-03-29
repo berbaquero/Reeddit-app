@@ -1,31 +1,80 @@
-.btn-edit-sub, .sub, .channel > p, #summary-title, .option, #sorting p { -webkit-transition-duration: 200ms; transition-duration: 200ms; }
+.btn-edit-sub,
+.sub,
+.channel > p,
+.option,
+#summary-title,
+#sorting p {
+	transition-duration: 200ms;
+}
 
 .btn-edit-sub:hover { color: #4286F5; }
 
-.sub:hover, .channel:hover > p, .option:hover, #sorting p:hover { text-shadow: 0 0 10px rgba(255, 255, 255, 0.75); }
+.sub:hover,
+.channel:hover > p,
+.option:hover,
+#sorting p:hover {
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.75);
+}
 
-.link, .sub, .channel, .list-button > span, .top-buttons > div, .comments-button, .item-to-remove > div, .btn-add-sub, .close-form, #btn-add-new-channel, .option, #sorting p, .btn-general { cursor: pointer; }
+.link,
+.sub,
+.channel,
+.list-button > span,
+.top-buttons > div,
+.comments-button,
+.item-to-edit > div,
+.btn-add-sub,
+.close-form,
+.option,
+.btn-general,
+#btn-add-new-channel,
+#sorting p {
+	cursor: pointer;
+}
 
-.btn-edit-sub {
+#subs,
+#channels,
+#main-title,
+#btn-add-another-sub,
+#title,
+.subreddit p,
+.edit-subs-title,
+.item-to-edit,
+.btn-edit-sub,
+.menu-desc,
+.view-footer p {
 	cursor: default;
 }
 
 #link-summary a:hover #summary-title { text-shadow: 0 1px 7px whiteSmoke; }
 
 /* Scrolling bars style */
-::-webkit-scrollbar, #main-menu::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar,
+#main-menu::-webkit-scrollbar { width: 7px; }
 
 /* Track Principal */
-::-webkit-scrollbar-track { border-radius: 10px; background-color: whiteSmoke; }
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: whiteSmoke;
+}
 
 /* Handle Principal */
-::-webkit-scrollbar-thumb { border-radius: 10px; background: rgb(200, 200, 200); }
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: rgb(200, 200, 200);
+}
 
 /* Track Menu */
-#main-menu::-webkit-scrollbar-track { border-radius: 10px; background-color: #262b30; }
+#main-menu::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: #262b30;
+}
 
 /* Handle Menu */
-#main-menu::-webkit-scrollbar-thumb { border-radius: 10px; background-color: rgba(0, 0, 0, 0.4); }
+#main-menu::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
 
 .button:hover {
 	box-shadow: rgba(255, 255, 255, .4) 0 1px 0 inset,
@@ -36,14 +85,16 @@
 
 }
 
-.button:active, .btn-general:active {
+.button:active,
+.btn-general:active {
 	background-image: -webkit-linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
 	background-image: linear-gradient(#3f3f3f 50%, #4b4b4b 100%);
 	box-shadow: 0 2px 7px black inset,
 				rgba(255, 255, 255, .4) 0 1px 0;
 }
 
-.btn-general:hover, .btn-general:visited { color: #555; }
+.btn-general:hover,
+.btn-general:visited { color: #555; }
 
 .btn-general:active { color: #f5f5f5; }
 
