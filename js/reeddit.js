@@ -1,22 +1,29 @@
 (function(win) {
 
     var T = { // Templates
+
         Posts: "{{#children}}<article class='link-wrap'><a class='link' href='{{data.url}}' data-id='{{data.id}}' target='_blank'><div class='link-thumb'><div style='background-image: url({{data.thumbnail}})'></div></div><div class='link-info'><p class='link-title'>{{data.title}}</p><p class='link-domain'>{{data.domain}}</p><p class='link-sub'>{{data.subreddit}}</p>{{#data.over_18}}<p class='link-nsfw'>NSFW</p>{{/data.over_18}}</div></a><div class='to-comments' data-id='{{data.id}}'><div class='right-arrow'></div></div></article>{{/children}}<div class='list-button'><span id='more-links'>More</span></div><div id='main-overflow'></div>",
+
         Subreddits: {
+
             list: "{{#.}}<li data-name='{{.}}'><p class='sub'>{{.}}</p></li>{{/.}}",
 
             toRemoveList: "<p class='edit-subs-title'>Subreddits</p><ul class='remove-list'>{{#.}}<div class='item-to-remove sub-to-remove' data-name='{{.}}'><p>{{.}}</p><div class='btn-remove-subreddit' data-name='{{.}}'></div></div>{{/.}}</ul>",
 
             toAddList: "{{#children}}<div class='subreddit'><div><p class='subreddit-title'>{{data.display_name}}</p><p class='subreddit-desc'>{{data.public_description}}</p></div><div class='btn-add-sub'><div></div></div></div>{{/children}}"
         },
+
         Channels: {
 
             singleEditItem: "<div class='item-to-remove channel-to-remove' data-title='{{name}}'><p class='channel-name'>{{name}}</p><div class='btn-edit-channel' data-title='{{name}}'></div><div class='btn-remove-channel' data-title='{{name}}'></div></div>",
 
             single: '<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>',
+
             list: '{{#.}}<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>{{/.}}'
         },
+
         linkSummary: "<section id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></section>",
+
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
 
         formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-submit-channel" data-op="save">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input class="field-edit-sub" type="text" placeholder="Subreddit 1" /><input class="field-edit-sub" type="text" placeholder="Subreddit 2" /><input class="field-edit-sub" type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">Add additional subreddit</div></div>',
@@ -24,8 +31,11 @@
         formEditChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-submit-channel" data-op="update">Update Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"></div><div id="btn-add-another-sub">Add additional subreddit</div></div>',
 
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
+
         noLink: "No Post Selected",
+
         moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>",
+
         updater: "<div class='new-form move-data'><div class='close-form'>close</div><h3>{{version.label}} available</h3><p>Updated on: {{update.date}}</p><p>• {{update.title}}:</p><p>{{update.message}}</p><div class='btn-general' id='btn-download' data-link='{{version.download_url}}'>Download new version</div></div>"
     };
 
@@ -79,8 +89,11 @@
     };
 
     var M = { // Model
+
         Posts: {
+
             list: {},
+
             setList: function(posts) {
                 for (var i = 0; i < posts.children.length; i++) {
                     var post = posts.children[i];
@@ -105,25 +118,32 @@
                     }
                 }
             },
+
             idLast: ''
         },
+
         Subreddits: {
+
             list: [],
+
             add: function(sub) {
                 if (!M.Subreddits.listHasSub(sub)) {
                     M.Subreddits.list.push(sub);
                     store.setItem("subreeddits", JSON.stringify(M.Subreddits.list));
                 }
             },
+
             setList: function(subs) {
                 M.Subreddits.list = subs;
                 store.setItem("subreeddits", JSON.stringify(M.Subreddits.list));
             },
+
             remove: function(sub) {
                 var idx = M.Subreddits.list.indexOf(sub);
                 M.Subreddits.list.splice(idx, 1);
                 store.setItem("subreeddits", JSON.stringify(M.Subreddits.list));
             },
+
             listHasSub: function(sub) {
                 if (M.Subreddits.list) {
                     var i = M.Subreddits.list.indexOf(sub);
@@ -131,6 +151,7 @@
                 }
                 return false;
             },
+
             getAllString: function() {
                 var allSubs = '';
                 for (var i = 0; i < M.Subreddits.list.length; i++) {
@@ -140,10 +161,14 @@
                 }
                 return allSubs.substring(0, allSubs.length - 1);
             },
+
             idLast: ''
         },
+
         Channels: {
+
             list: [],
+
             getURL: function(channel) {
                 if (channel.subs.length === 1) { // Reddit API-related hack
                     // If there's one subreddit in a "Channel", and this subreddit name's invalid, reddit.com responds with a search-results HTML - not json data - and throws a hard-to-catch error...
@@ -152,10 +177,12 @@
                     return "r/" + channel.subs.join("+");
                 }
             },
+
             add: function(channel) {
                 M.Channels.list.push(channel);
                 store.setItem('channels', JSON.stringify(M.Channels.list));
             },
+
             remove: function(name) {
                 for (var j = 0; j < M.Channels.list.length; j++) {
                     if (M.Channels.list[j].name === name) {
@@ -165,6 +192,7 @@
                 }
                 store.setItem('channels', JSON.stringify(M.Channels.list));
             },
+
             getByName: function(name) {
                 var foundChannel;
                 for (var i = 0; i < M.Channels.list.length; i++) {
@@ -176,18 +204,22 @@
                 return foundChannel;
             }
         },
+
         currentSelection: {
+
             loadSaved: function() {
                 var loadedSelection = store.getItem('currentSelection');
                 if (loadedSelection) loadedSelection = JSON.parse(loadedSelection);
                 M.currentSelection.name = loadedSelection ? loadedSelection.name : 'frontPage';
                 M.currentSelection.type = loadedSelection ? loadedSelection.type : selection.sub;
             },
+
             setSubreddit: function(sub) {
                 M.currentSelection.name = sub;
                 M.currentSelection.type = selection.sub;
                 store.setItem('currentSelection', JSON.stringify(M.currentSelection));
             },
+
             setChannel: function(channel) {
                 M.currentSelection.name = channel.name;
                 M.currentSelection.type = selection.channel;
@@ -210,19 +242,25 @@
         btnNavBack: $id("nav-back"),
         footerSub: $id("footer-sub"),
         footerPost: $id("footer-post"),
+
         Channels: {
+
             menuContainer: $id("channels"),
+
             add: function(channel) {
                 $append(V.Channels.menuContainer, Mustache.to_html(T.Channels.single, channel));
                 if (editingSubs) V.Channels.addToEditList(channel.name);
             },
+
             loadList: function() {
                 $html(V.Channels.menuContainer, Mustache.to_html(T.Channels.list, M.Channels.list));
             },
+
             remove: function(name) {
                 $remove($q('.channel[data-title="' + name + '"]').parentNode);
                 $remove($q('.channel-to-remove[data-title="' + name + '"]'));
             },
+
             showNewChannelForm: function() {
                 V.Actions.showModal(T.formAddNewChannel, function() {
                     $id('txt-channel').focus();
@@ -233,8 +271,11 @@
                 $append($q(".channel-edit-list"), T.Channels.singleEditItem.replace(/\{\{name\}\}/g, name));
             }
         },
+
         Subreddits: {
+
             listContainer: $id("subs"),
+
             insert: function(subs, active) {
                 var subsList = V.Subreddits.listContainer;
                 if (subs instanceof Array) {
@@ -252,19 +293,23 @@
                     }
                 }
             },
+
             remove: function(sub) {
                 $remove($q(".sub-to-remove[data-name='" + sub + "']"));
                 $remove($q("#subs > li[data-name='" + sub + "']"));
             },
+
             cleanSelected: function() {
                 $removeClass($q(".sub-active"), "sub-active");
                 $removeClass($q(".channel-active"), "channel-active");
             },
+
             showManualInput: function() {
                 V.Actions.showModal(T.formAgregarSubManual, function() {
                     $id('txt-new-sub').focus();
                 });
             },
+
             showAddingList: function() {
                 var main = V.mainWrap;
                 $empty(main);
@@ -272,9 +317,12 @@
                 $append(main, T.botonCargarMasSubs);
                 V.Anims.reveal(main);
             },
+
             addingList: ''
         },
+
         Posts: {
+
             show: function(links, paging) { // links: API raw data
                 var linksCount = links.children.length,
                     main = V.mainWrap;
@@ -310,11 +358,14 @@
                 if (!paging) V.Anims.reveal(main);
             }
         },
+
         Actions: {
+
             setSubTitle: function(title) {
                 $text(V.subtitleText, title);
                 $text(V.footerSub, title);
             },
+
             backToMainView: function() {
                 $addClass(V.btnNavBack, "invisible");
                 $removeClass(V.subtitle, "invisible");
@@ -322,6 +373,7 @@
                 $append(V.headerSection, V.headerIcon);
                 V.Anims.slideFromLeft();
             },
+
             moveMenu: function(direction) {
                 if (direction === move.left) {
                     $removeClass(V.mainView, css.showMenu);
@@ -336,6 +388,7 @@
                     });
                 }
             },
+
             loadForAdding: function() {
                 if (!isLargeScreen) V.Actions.moveMenu(move.left);
                 if (currentView === view.comments) V.Actions.backToMainView();
@@ -387,6 +440,7 @@
                 V.Actions.setSubTitle('Edit Subs');
                 setEditingSubs(true);
             },
+
             showModal: function(template, callback) {
                 var delay = 1;
                 if (!isLargeScreen && showingMenu) {
@@ -406,6 +460,7 @@
                     if (callback) callback();
                 }, delay);
             },
+
             removeModal: function() {
                 var modal = $id('modal');
                 modal.style.opacity = '';
@@ -414,6 +469,7 @@
                     $remove(modal);
                 }, 301);
             },
+
             setDetailFooter: function(title) {
                 $text(V.footerPost, title ? title : T.noLink);
                 var btns = $qAll("#detail-footer .btn-footer");
@@ -423,6 +479,7 @@
                 }
             }
         },
+
         Anims: {
 
             slideFromLeft: function() {
@@ -476,7 +533,9 @@
     };
 
     var C = { // "Controller"
+
         Posts: {
+
             load: function(baseUrl, paging) {
                 if (loadingLinks) return;
                 loadingLinks = true;
@@ -503,10 +562,12 @@
                     $text(loader, "Error loading links. Refresh to try again.");
                 });
             },
+
             loadFromManualInput: function(loadedLinks) {
                 C.Posts.show(loadedLinks);
                 setEditingSubs(false);
             },
+
             show: function(result, paging) {
                 var links = result.data;
                 loadingLinks = false;
@@ -516,7 +577,9 @@
                 M.Posts.setList(links);
             }
         },
+
         Comments: {
+
             load: function(data, baseElement, idParent) {
                 var now = new Date().getTime(),
                     converter = new Markdown.Converter(),
@@ -576,6 +639,7 @@
                 if (idParent) loadedLinks[idParent] = comments;
 
             },
+
             show: function(id, refresh) {
                 var delay = 0;
                 if (showingMenu) {
@@ -637,7 +701,9 @@
                 }, delay);
             }
         },
+
         Subreddits: {
+
             loadSaved: function() { // Only should execute when first loading the app
                 var subs = store.getItem("subreeddits");
                 if (subs) subs = JSON.parse(subs);
@@ -645,6 +711,7 @@
                 if (!M.Subreddits.list) M.Subreddits.setList(defaultSubs); // If it hasn't been loaded to the 'local store', save default subreddits
                 V.Subreddits.insert(M.Subreddits.list);
             },
+
             loadPosts: function(sub) {
                 if (sub !== M.currentSelection.name || editingSubs) {
                     var url;
@@ -655,11 +722,13 @@
                 }
                 V.Actions.setSubTitle(sub);
             },
+
             remove: function(sub) {
                 M.Subreddits.remove(sub);
                 V.Subreddits.remove(sub);
                 if (M.currentSelection.type === selection.sub && M.currentSelection.name === sub) C.currentSelection.setSubreddit('frontPage'); // If it was the current selection
             },
+
             addFromNewForm: function() {
                 var txtSub = $id("txt-new-sub"),
                     subName = txtSub.value;
@@ -682,6 +751,7 @@
                 });
             }
         },
+
         Channels: {
 
             add: function(title, subreddits) {
@@ -692,22 +762,27 @@
                 M.Channels.add(channel);
                 V.Channels.add(channel);
             },
+
             loadSaved: function() { // Should only execute when first loading the app
                 M.Channels.list = store.getItem('channels');
                 if (M.Channels.list) M.Channels.list = JSON.parse(M.Channels.list);
                 else M.Channels.list = [defaultChannel]; // Load default channel(s)
                 V.Channels.loadList();
             },
+
             loadPosts: function(channel) {
                 C.Posts.load(urlInit + M.Channels.getURL(channel) + '/');
                 V.Actions.setSubTitle(channel.name);
                 C.currentSelection.setChannel(channel);
             },
+
             remove: function(name) {
                 M.Channels.remove(name);
                 V.Channels.remove(name);
                 // If it was the current selection
                 if (M.currentSelection.type === selection.channel && M.currentSelection.name === name) C.currentSelection.setSubreddit('frontPage');
+            },
+
             edit: function(name) {
                 var channelToEdit = M.Channels.getByName(name);
                 V.Actions.showModal(T.formEditChannel, function() {
@@ -726,18 +801,24 @@
                 });
             }
         },
+
         currentSelection: {
+
             setSubreddit: function(sub) {
                 M.currentSelection.setSubreddit(sub);
             },
+
             setChannel: function(channel) {
                 M.currentSelection.setChannel(channel);
             }
         },
+
         Sorting: {
+
             get: function() {
                 return (currentSortingChoice !== 'hot' ? (currentSortingChoice + '/') : '');
             },
+
             change: function(sorting) {
                 currentSortingChoice = sorting;
                 if (editingSubs) return; // No subreddit or channel selected - just change the sorting type
@@ -752,7 +833,9 @@
                 }, delay);
             }
         },
+
         Misc: {
+
             setPostSummary: function(data, postID) {
                 // Main content
                 var summaryHTML = Mustache.to_html(T.linkSummary, data);
@@ -778,6 +861,7 @@
                 M.Posts.list[postID].summary = summaryHTML;
                 $text(V.footerPost, data.title);
             },
+
             updatePostSummary: function(data, postID) {
                 $id("summary-comment-num").innerText = data.num_comments + (data.num_comments === 1 ? ' comment' : ' comments');
                 // Time ago
@@ -785,6 +869,7 @@
                 M.Posts.list[postID].num_comments = data.num_comments;
                 M.Posts.list[postID].created_utc = data.created_utc;
             },
+
             updatePostTime: function(time) {
                 $id("summary-time").innerText = timeSince(new Date().getTime(), time);
             }
