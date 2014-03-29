@@ -5,7 +5,7 @@
 		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9/Reeddit.app.zip"
 	},
 	"update": {
-		"trigger": false,
+		"trigger": true,
 		"title": "Edit Channels",
 		"message": "Change the name of a Channel. Add, edit, or remove its containing subreddits.",
 		"date": "March 29th, 2014"
