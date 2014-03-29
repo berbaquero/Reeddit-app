@@ -232,9 +232,13 @@ a { color: #999; }
     height: 28px;
 }
 
-#add-new-sub { left: 0; }
+#btn-add-subs { left: 0; }
 
-#remove-sub { right: 0; }
+#btn-edit-subs {
+    right: 0;
+    font-size: 16px;
+    line-height: 26px;
+}
 
 #subs,
 #channels {
@@ -707,7 +711,7 @@ header > div {
 
 #remove-wrap { height: 100%; }
 
-#remove-title {
+.edit-subs-title {
     padding: 10px;
     font-weight: 700;
     font-size: 16px;
@@ -723,7 +727,7 @@ header > div {
     padding: 0;
 }
 
-.item-to-remove {
+.item-to-edit {
     display: -webkit-box; display: box;
     border-bottom: 1px solid #DDD;
     border-top: 1px solid white;
@@ -731,7 +735,7 @@ header > div {
     height: 60px;
 }
 
-.item-to-remove > p {
+.item-to-edit > p {
     width: 85%;
     text-transform: capitalize;
     font-size: 14px;
@@ -739,13 +743,26 @@ header > div {
     padding-left: 10px;
 }
 
-.item-to-remove > div {
-    background-image: url('../img/delete.png');
+.item-to-edit .channel-name {
+    width: 70%;
+}
+
+.item-to-edit > div {
     width: 15%;
     height: 100%;
-    background-size: 24px;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.item-to-edit .btn-remove-channel,
+.item-to-edit .btn-remove-subreddit {
+    background-image: url('../img/delete.png');
+    background-size: 22px;
+}
+
+.item-to-edit .btn-edit-channel {
+    background-image: url('../img/edit.png');
+    background-size: 16px;
 }
 
 /*--- Constantes ---*/

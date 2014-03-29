@@ -4,17 +4,25 @@
         Posts: "{{#children}}<article class='link-wrap'><a class='link' href='{{data.url}}' data-id='{{data.id}}' target='_blank'><div class='link-thumb'><div style='background-image: url({{data.thumbnail}})'></div></div><div class='link-info'><p class='link-title'>{{data.title}}</p><p class='link-domain'>{{data.domain}}</p><p class='link-sub'>{{data.subreddit}}</p>{{#data.over_18}}<p class='link-nsfw'>NSFW</p>{{/data.over_18}}</div></a><div class='to-comments' data-id='{{data.id}}'><div class='right-arrow'></div></div></article>{{/children}}<div class='list-button'><span id='more-links'>More</span></div><div id='main-overflow'></div>",
         Subreddits: {
             list: "{{#.}}<li data-name='{{.}}'><p class='sub'>{{.}}</p></li>{{/.}}",
-            toRemoveList: "<ul class='remove-list'>{{#.}}<div class='item-to-remove sub-to-remove' data-name='{{.}}'><p>{{.}}</p><div data-name='{{.}}'></div></div>{{/.}}</ul>",
+
+            toRemoveList: "<p class='edit-subs-title'>Subreddits</p><ul class='remove-list'>{{#.}}<div class='item-to-remove sub-to-remove' data-name='{{.}}'><p>{{.}}</p><div class='btn-remove-subreddit' data-name='{{.}}'></div></div>{{/.}}</ul>",
+
             toAddList: "{{#children}}<div class='subreddit'><div><p class='subreddit-title'>{{data.display_name}}</p><p class='subreddit-desc'>{{data.public_description}}</p></div><div class='btn-add-sub'><div></div></div></div>{{/children}}"
         },
         Channels: {
-            toRemoveList: "<p id='remove-title'>Channels</p><ul class='remove-list'>{{#.}}<div class='item-to-remove channel-to-remove' data-title='{{name}}'><p>{{name}}</p><div data-title='{{name}}'></div></div>{{/.}}</ul>",
+
+            singleEditItem: "<div class='item-to-remove channel-to-remove' data-title='{{name}}'><p class='channel-name'>{{name}}</p><div class='btn-edit-channel' data-title='{{name}}'></div><div class='btn-remove-channel' data-title='{{name}}'></div></div>",
+
             single: '<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>',
             list: '{{#.}}<li><div class="channel" data-title="{{name}}"><p>{{name}}</p><div>{{#subs}}<p>{{.}}</p>{{/subs}}</div></div></li>{{/.}}'
         },
         linkSummary: "<section id='link-summary'><a href='{{url}}' target='_blank'><p id='summary-title'>{{title}}</p><p id='summary-domain'>{{domain}}</p>{{#over_18}}<span class='link-nsfw summary-nsfw'>NSFW</span>{{/over_18}}</a><div id='summary-footer'><p id='summary-author'>by {{author}}</p><div class='btn-general' id='share' >Share</div></div><div id='summary-extra'><p id='summary-sub'>{{subreddit}}</p><p id='summary-time'></p><a id='summary-comment-num' href='http://reddit.com{{link}}' target='_blank'>{{num_comments}} comments</a></section>",
         formAgregarSubManual: '<div class="new-form" id="form-new-sub"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-sub">Add Subreddit</div></div><div class="close-form">close</div><form><input type="text" id="txt-new-sub" placeholder="New subreddit name" /></form></div>',
-        formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-add-new-channel">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input type="text" placeholder="Subreddit 1" /><input type="text" placeholder="Subreddit 2" /><input type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">+ another subreddit</div></div>',
+
+        formAddNewChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-submit-channel" data-op="save">Add Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"><input class="field-edit-sub" type="text" placeholder="Subreddit 1" /><input class="field-edit-sub" type="text" placeholder="Subreddit 2" /><input class="field-edit-sub" type="text" placeholder="Subreddit 3" /></div><div id="btn-add-another-sub">Add additional subreddit</div></div>',
+
+        formEditChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-submit-channel" data-op="update">Update Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"></div><div id="btn-add-another-sub">Add additional subreddit</div></div>',
+
         botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
         noLink: "No Post Selected",
         moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>",
@@ -206,6 +214,7 @@
             menuContainer: $id("channels"),
             add: function(channel) {
                 $append(V.Channels.menuContainer, Mustache.to_html(T.Channels.single, channel));
+                if (editingSubs) V.Channels.addToEditList(channel.name);
             },
             loadList: function() {
                 $html(V.Channels.menuContainer, Mustache.to_html(T.Channels.list, M.Channels.list));
@@ -218,6 +227,10 @@
                 V.Actions.showModal(T.formAddNewChannel, function() {
                     $id('txt-channel').focus();
                 });
+            },
+
+            addToEditList: function(name) {
+                $append($q(".channel-edit-list"), T.Channels.singleEditItem.replace(/\{\{name\}\}/g, name));
             }
         },
         Subreddits: {
@@ -349,10 +362,11 @@
                     loadingLinks = false;
                 }, isLargeScreen ? 1 : 301);
                 V.Subreddits.cleanSelected();
-                V.Actions.setSubTitle("+ Subreddits");
+                V.Actions.setSubTitle("Add Subs");
                 setEditingSubs(true);
             },
-            loadForRemoving: function() {
+
+            loadForEditing: function() {
                 if (!isLargeScreen) V.Actions.moveMenu(move.left);
                 if (currentView === view.comments) V.Actions.backToMainView();
 
@@ -361,16 +375,16 @@
                     var htmlSubs = Mustache.to_html(T.Subreddits.toRemoveList, M.Subreddits.list);
                     var htmlChannels = '';
                     if (M.Channels.list && M.Channels.list.length > 0) {
-                        htmlChannels = Mustache.to_html(T.Channels.toRemoveList, M.Channels.list);
+                        htmlChannels = Mustache.to_html("<p class='edit-subs-title'>Channels</p><ul class='remove-list channel-edit-list'>{{#.}} " + T.Channels.singleEditItem + "{{/.}}</ul>", M.Channels.list);
                     }
-                    var html = '<div id="remove-wrap">' + htmlSubs + htmlChannels + "</div>";
+                    var html = '<div id="remove-wrap">' + htmlChannels + htmlSubs + "</div>";
                     $html(V.mainWrap, html);
                     V.Anims.reveal(V.mainWrap);
 
                     V.Subreddits.cleanSelected();
                     loadingLinks = false;
                 }, isLargeScreen ? 1 : 301);
-                V.Actions.setSubTitle('- Subreddits');
+                V.Actions.setSubTitle('Edit Subs');
                 setEditingSubs(true);
             },
             showModal: function(template, callback) {
@@ -669,7 +683,12 @@
             }
         },
         Channels: {
-            add: function(channel) {
+
+            add: function(title, subreddits) {
+                var channel = {
+                    name: title,
+                    subs: subreddits
+                };
                 M.Channels.add(channel);
                 V.Channels.add(channel);
             },
@@ -689,6 +708,22 @@
                 V.Channels.remove(name);
                 // If it was the current selection
                 if (M.currentSelection.type === selection.channel && M.currentSelection.name === name) C.currentSelection.setSubreddit('frontPage');
+            edit: function(name) {
+                var channelToEdit = M.Channels.getByName(name);
+                V.Actions.showModal(T.formEditChannel, function() {
+                    // Fill form with current values
+                    $id("txt-channel").value = channelToEdit.name;
+
+                    M.Channels.editing = channelToEdit.name;
+                    var inputsContainer = $id("subs-for-channel");
+
+                    for (var i = 0, l = channelToEdit.subs.length; i < l; i++) {
+
+                        var inputTemplate = "<input class='field-edit-sub with-clear' type='text' value='{{subName}}'>";
+
+                        $append(inputsContainer, inputTemplate.replace("{{subName}}", channelToEdit.subs[i]));
+                    }
+                });
             }
         },
         currentSelection: {
@@ -873,12 +908,13 @@
         allowClick: false
     });
 
-    tappable("#btn-add-new-channel", {
+    tappable("#btn-submit-channel", {
         onTap: function(e, target) {
-            var txtChannelName = $id("txt-channel");
+            var txtChannelName = $id("txt-channel"),
+                operation = target.getAttribute("data-op");
             var channelName = txtChannelName.value;
             if (!channelName) {
-                txtChannelName.setAttribute("placeholder", "Enter a Channel name!");
+                txtChannelName.placeholder = "Enter a Channel name!";
                 V.Anims.shakeForm();
                 return;
             }
@@ -896,23 +932,32 @@
                 return;
             }
 
-            // Look for Channel name in the saved ones
-            var savedChannel = M.Channels.getByName(channelName);
-            if (savedChannel) { // If it's already saved
-                txtChannelName.value = "";
-                txtChannelName.setAttribute("placeholder", "'" + channelName + "' already exists.");
-                V.Anims.shakeForm();
-                return;
-            }
+            switch (operation) {
+                case "save":
+                    // Look for Channel name in the saved ones
+                    var savedChannel = M.Channels.getByName(channelName);
+                    if (savedChannel) { // If it's already saved
+                        txtChannelName.value = "";
+                        txtChannelName.placeholder = "'" + channelName + "' already exists.";
+                        V.Anims.shakeForm();
+                        return;
+                    }
 
-            var channel = {};
-            channel.name = channelName;
-            channel.subs = subreddits;
-            C.Channels.add(channel);
+                    C.Channels.add(channelName, subreddits);
+
+                    break;
+
+                case "update":
+                    // Remove current and add new
+                    C.Channels.remove(M.Channels.editing);
+                    C.Channels.add(channelName, subreddits);
+
+                    break;
+            }
 
             // confirmation feedback
             $remove(target);
-            $append($q(".form-left-corner"), "<p class='channel-added-msg'>'" + channel.name + "' added. Cool!</p>");
+            $append($q(".form-left-corner"), "<p class='channel-added-msg'>'" + channelName + "' " + operation + "d. Cool!</p>");
 
             V.Anims.bounceOut($q(".new-form"), V.Actions.removeModal);
         },
@@ -924,8 +969,7 @@
             var container = $id("subs-for-channel");
             $append(container, "<input type='text' placeholder='Extra subreddit'></input>");
             container.scrollTop = container.innerHeight;
-        },
-        activeClass: "btn-general-active"
+        }
     });
 
     tappable('.channel', {
@@ -1032,14 +1076,14 @@
         activeClass: 'sub-title-active'
     });
 
-    tappable("#add-new-sub", {
+    tappable("#btn-add-subs", {
         onTap: function(e) {
             subsMenu.popup(e.x, e.y - 70);
         }
     });
 
-    tappable("#remove-sub", {
-        onTap: V.Actions.loadForRemoving
+    tappable("#btn-edit-subs", {
+        onTap: V.Actions.loadForEditing
     });
 
     tappable("#more-links", {
@@ -1103,16 +1147,23 @@
         activeClass: 'button-active'
     });
 
-    tappable(".sub-to-remove > div", {
+    tappable(".btn-remove-subreddit", {
         onTap: function(e, target) {
             C.Subreddits.remove(target.getAttribute('data-name'));
         },
         activeClass: 'button-active'
     });
 
-    tappable(".channel-to-remove > div", {
+    tappable(".btn-remove-channel", {
         onTap: function(e, target) {
             C.Channels.remove(target.getAttribute('data-title'));
+        },
+        activeClass: 'button-active'
+    });
+
+    tappable(".btn-edit-channel", {
+        onTap: function(e, target) {
+            C.Channels.edit(target.getAttribute('data-title'));
         },
         activeClass: 'button-active'
     });
@@ -1329,8 +1380,8 @@
     }));
 
     submenu.append(new gui.MenuItem({
-        label: 'Remove Subscriptions',
-        click: V.Actions.loadForRemoving
+        label: 'Edit Subscriptions',
+        click: V.Actions.loadForEditing
     }));
     submenu.append(new gui.MenuItem({
         type: 'separator'
