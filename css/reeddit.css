@@ -1,6 +1,5 @@
 * {
     color: #373737;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -31,7 +30,6 @@ a { color: #999; }
     width: 100%;
     top: 44px; bottom: 0; left: 0; right: 0;
     z-index: 1;
-    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
 }
 
@@ -464,7 +462,6 @@ header > div {
 /*-- Botones --*/
 
 #nav-back {
-    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
 }
 
@@ -552,7 +549,6 @@ header > div {
     top: 14px;
     font-weight: 700;
     cursor: default;
-    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -746,7 +742,6 @@ header > div {
 }
 
 .slide-transition {
-    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
 }
 
@@ -754,7 +749,6 @@ header > div {
     position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
     background-color: rgba(0,0,0,.7);
-    -webkit-transition-duration: 300ms;
     transition-duration: 300ms;
     opacity: 0;
     z-index: 9999;
@@ -1089,7 +1083,6 @@ header > div {
 
     .view {
         top: 0;
-        -webkit-transition-duration: 0s;
         transition-duration: 0s;
     }
 
