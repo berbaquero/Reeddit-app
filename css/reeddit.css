@@ -407,7 +407,9 @@ a { color: #999; }
     margin: 0 auto;
 }
 
-.comments-button, .list-button > span, .btn-general {
+.comments-button,
+.list-button > span,
+.btn-general {
     color: #555;
     background-image: -webkit-linear-gradient(whiteSmoke 0%, #CCC 100%);
     background-image: linear-gradient(whiteSmoke 0%, #CCC 100%);
@@ -677,14 +679,20 @@ header > div {
 #btn-add-new-channel { padding: 5px 10px; }
 
 #btn-add-another-sub {
-    background-color: #CCC;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 8px 15px;
-    font-size: 15px;
-    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
     border: 1px solid #aaa;
-    border-top: 0;
+    background-image: linear-gradient(#e5e5e5, #bbb);
+    box-shadow: inset 0 1px 0 0 #fff;
+}
+
+#btn-add-another-sub:active {
+    box-shadow: inset 0 0 8px 4px #c5c5c5;
 }
 
 .channel-added-msg {
