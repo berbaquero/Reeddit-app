@@ -1,0 +1,114 @@
+doctype html
+html
+
+    head
+
+        title Reeddit
+
+        meta(charset="utf-8")
+
+        link(rel="stylesheet", href="css/normalize.css")
+
+        link(rel="stylesheet", href="css/reeddit.css")
+
+        link(rel="stylesheet", href="css/desk.css")
+
+
+
+    body
+
+        header
+
+            div#main-title
+
+                p#sub-title
+
+            section#nav-back.corner.invisible
+
+                div#back-arrow.button.btn-to-main
+
+                    div
+
+            div#title-head
+
+                div#header-icon
+
+                p#title
+
+            section.corner
+
+                div#refresh-icon.button.btn-refresh
+
+                    div
+
+
+
+        nav#menu-container
+
+            div.view
+
+                div#edit-subs
+
+                    span#btn-add-subs.btn-edit-sub +
+
+                    span#btn-edit-subs.btn-edit-sub •••
+
+                div#main-menu.wrapper
+
+                    div.menu-desc Subreddits
+
+                    ul#subs
+
+                    div.menu-desc Channels
+
+                    ul#channels
+
+                    div.menu-desc Sorting
+
+                    div#sorting
+
+                        p.sorting-choice hot
+
+                        p new
+
+                        p controversial
+
+                        p top
+
+                    div.menu-desc Options
+
+                    div#imp-exp.option Import & Export Data
+
+
+
+        section.view.main-view.show-view
+
+            section#main-wrap.wrapper
+
+            div#main-footer.view-footer
+
+                p#footer-sub
+
+                div(class="btn-footer footer-refresh btn-refresh", data-origin="footer-main")
+
+
+
+        section.view.detail-view
+
+            section#detail-wrap.wrapper
+
+            div#detail-footer.view-footer
+
+                div#detail-close.btn-footer.hide.btn-to-main
+
+                p#footer-post
+
+                div(class="btn-footer footer-refresh btn-refresh hide", data-origin="footer-detail")
+
+
+
+        script(src="js/libs.js")
+
+        script(src="js/dom.js")
+
+        script(src="js/reeddit.js")
