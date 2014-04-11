@@ -257,8 +257,12 @@
             },
 
             remove: function(name) {
+                var deletedChannel = $q('.channel-to-remove[data-title="' + name + '"]');
+                $addClass(deletedChannel, "anim-delete");
+                setTimeout(function() {
+                    $remove(deletedChannel);
+                }, 200);
                 $remove($q('.channel[data-title="' + name + '"]').parentNode);
-                $remove($q('.channel-to-remove[data-title="' + name + '"]'));
             },
 
             showNewChannelForm: function() {
@@ -295,7 +299,11 @@
             },
 
             remove: function(sub) {
-                $remove($q(".sub-to-remove[data-name='" + sub + "']"));
+                var deletedSub = $q(".sub-to-remove[data-name='" + sub + "']");
+                $addClass(deletedSub, "anim-delete");
+                setTimeout(function() {
+                    $remove(deletedSub);
+                }, 200);
                 $remove($q("#subs > li[data-name='" + sub + "']"));
             },
 
