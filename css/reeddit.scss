@@ -134,11 +134,12 @@ a { color: #999; }
     -webkit-box-flex: 1;
 }
 
-#share {
+#btn-share {
     -webkit-box-flex: 1;
     margin-right: 10px;
     display: inline-block;
     font-size: 13px;
+    padding: 3px 6px;
 }
 
 #summary-sub { color: #FAFAFA; text-align: left; }
