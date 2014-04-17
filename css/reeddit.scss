@@ -1,3 +1,5 @@
+$main-red: #cf4f5b;
+
 * {
     color: #373737;
     box-sizing: border-box;
@@ -77,7 +79,10 @@ a { color: #999; }
 
 .comment-data > div { -webkit-box-flex: 1; box-flex: 1; width: 50%; }
 
-.comment-author p { color: #eb4d5c; font-weight: 700; }
+.comment-author p {
+    color: $main-red;
+    font-weight: 700;
+}
 
 .comment-poster { position: relative; }
 
@@ -86,8 +91,8 @@ a { color: #999; }
     position: absolute;
     top: -2px;
     left: 0;
-    color: #eb4d5c;
-    border: 1px solid #eb4d5c;
+    color: $main-red;
+    border: 1px solid;
     padding: 2px 4px;
     border-radius: 2px;
     font-size: 10px;
@@ -95,7 +100,7 @@ a { color: #999; }
 }
 
 .comment-poster p {
-    color: #eb4d5c;
+    color: $main-red;
     font-weight: 700;
     position: relative;
     left: 28px;
@@ -361,8 +366,7 @@ a { color: #999; }
 
 .link-domain {
     margin: 0;
-    color: #eb4d5c;
-    color: #CF4F5B;
+    color: $main-red;
 }
 
 .link-sub {
@@ -464,7 +468,7 @@ header > div {
     color: #333;
     text-shadow: 0 1px 1px white;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     width: 100%;
     margin: 0;
     white-space: nowrap;
