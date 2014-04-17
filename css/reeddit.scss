@@ -65,12 +65,17 @@ a { color: #999; }
     margin: 0 auto;
 }
 
-#comments-container > .comments-level > .comment-wrap { padding-right: 10px; border-left: 0; }
+#comments-container > .comments-level > .comment-wrap {
+    padding-right: 10px;
+    border-left: 0;
+    border-bottom-color: #ddd;
+}
 
 .comment-wrap {
+    $comment-border: #ececec;
     padding: 10px 0 10px 10px;
-    border-bottom: 1px solid #DDD;
-    border-left: 1px solid #DDD;
+    border-bottom: 1px solid $comment-border;
+    border-left: 1px solid $comment-border;
 }
 
 .comments-level .comment-wrap:last-child { border-radius: 0 0 0 4px; }
