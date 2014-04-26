@@ -1,0 +1,24 @@
+.button
+    +size(28px, 22px)
+    border: 1px solid transparent
+    border-radius: 4px
+    margin: 0 auto
+
+    &:hover,
+    &:active
+        border: 1px solid #777
+        box-shadow: rgba(255, 255, 255, .4) 0 1px
+
+    &:hover
+        background-image: linear-gradient(#eee, #959595)
+
+    &:active
+        background-image: linear-gradient(#959595, #d5d5d5)
+        box-shadow: inset 0 3px 7px #757575, rgba(255, 255, 255, 0.4) 0 1px
+
+
+#refresh-icon .icon-btn
+    opacity: .8
+
+    &:active
+        opacity: .9

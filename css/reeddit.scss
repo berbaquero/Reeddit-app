@@ -1,5 +1,9 @@
+@import "base";
+@import "buttons";
+
 $main-red: #cf4f5b;
 $header-black: #4e4e4e;
+$header-height: 44px;
 
 * {
     color: #373737;
@@ -31,7 +35,10 @@ a { color: #999; }
 .view {
     position: absolute;
     width: 100%;
-    top: 44px; bottom: 0; left: 0; right: 0;
+    top: $header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
     transition-duration: 300ms;
 }
@@ -454,7 +461,7 @@ header {
     position: fixed;
     z-index: 2;
     display: -webkit-box; display: box;
-    height: 44px;
+    height: $header-height;
     background-image: url(../img/bg.png);
     background-color: #e7e7e7;
     border-bottom: 1px solid #777;
@@ -471,15 +478,13 @@ header > div {
 }
 
 #title {
+    @extend %overflow-ellipsis;
     color: $header-black;
-    text-shadow: 0 1px 1px white;
+    text-shadow: 0 1px 1px #eee;
     text-align: center;
     font-size: 16px;
     width: 100%;
     margin: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
     font-weight: 700;
 }
 
@@ -499,29 +504,22 @@ header > div {
 }
 
 .corner {
-    width: 15%;
-    -webkit-box-flex: 1; box-flex: 1;
-    display: -webkit-box; display: box;
-    -webkit-box-align: center; box-align: center;
+    // width: 15%;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    display: -webkit-box;
+    display: box;
+    -webkit-box-align: center;
+    box-align: center;
 }
 
-.button {
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    margin: 0 auto;
-}
-
-#refresh-icon div {
+#refresh-icon .icon-btn {
     background-image: url('../img/refresh1.png');
-    width: 14px; height: 18px;
+    @include size(12px, 16px);
     background-repeat: no-repeat;
-    background-size: 14px;
+    background-size: 12px;
     margin: 0 auto;
-    opacity: .8;
 }
-
-#refresh-icon:active div { background-image: url('../img/refresh.png'); }
 
 #back-arrow,
 #refresh-icon {
@@ -531,16 +529,21 @@ header > div {
     box-align: center;
 }
 
-#back-arrow div {
-    height: 0;
-    width: 0;
-    margin: 0 auto;
-    border-bottom: 6px solid transparent;
-    border-right: 12px solid $header-black;
-    border-top: 6px solid transparent;
-}
+#back-arrow {
 
-#back-arrow:active div { border-right: 12px solid #fff; }
+    .icon-btn {
+        height: 0;
+        width: 0;
+        margin: 0 auto;
+        border-bottom: 5px solid transparent;
+        border-right: 10px solid $header-black;
+        border-top: 5px solid transparent;
+    }
+
+    &:active .icon-btn {
+        border-right-color: darken($header-black, 10%);
+    }
+}
 
 .to-comments {
     width: 15%;
@@ -590,18 +593,22 @@ header > div {
 }
 
 #sub-title {
+    @include letterpress();
     margin: 0 0 0 5px;
     padding: 0 5px;
-    color: #4E4E4E;
-    text-shadow: 0 1px 1px whiteSmoke;
+    color: $header-black;
     border-radius: 5px;
     transition-duration: 100ms;
     transition-property: background-color;
-}
 
-.sub-title-active {
-    text-shadow: 0 -1px 1px whiteSmoke !important;
-    background-color: rgba(0, 0, 0, 0.2) !important;
+    &:hover {
+        background-color: lighten($header-black, 25%);
+    }
+
+    &:active {
+        @include emboss();
+        background-color: lighten($header-black, 20%);
+    }
 }
 
 /*--- Subreddits ---*/
