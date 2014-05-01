@@ -1,10 +1,6 @@
 @import "base";
 @import "buttons";
 
-$main-red: #cf4f5b;
-$header-black: #4e4e4e;
-$header-height: 44px;
-
 * {
     color: #373737;
     box-sizing: border-box;
@@ -872,9 +868,10 @@ header > div {
     position: relative;
 }
 
-.move-data { top: 80px; }
-
-.move-data { padding: 10px; }
+.move-data {
+    top: 80px;
+    padding: 10px;
+}
 
 .move-data h3,
 .move-data p { text-shadow: 0 1px 0 #fff; }
