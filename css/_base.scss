@@ -1,3 +1,6 @@
+$blue: #4286F5;
+$icon-hover-color: $blue;
+
 @mixin size($width, $height: $width) {
     width: $width;
     height: $height;

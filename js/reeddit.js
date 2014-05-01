@@ -1347,6 +1347,12 @@
 
     $q("#header-icon").addEventListener("dblclick", function() {
         mainWindow.height = 1048;
+    $id("btn-new-sub").addEventListener("click", function() {
+        V.Subreddits.showManualInput();
+    });
+
+    $id("btn-new-channel").addEventListener("click", function() {
+        V.Channels.showNewChannelForm();
     });
 
     // App init

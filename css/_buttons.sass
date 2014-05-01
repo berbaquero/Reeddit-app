@@ -22,3 +22,23 @@
 
     &:active
         opacity: .9
+
+
+.btn-side-menu-add
+    $btn-color: #777
+    position: absolute
+    right: 0
+    padding-left: 10px
+    padding-right: 10px
+    color: $btn-color
+    font-size: 16px
+    font-weight: 600
+    visibility: hidden
+
+    &:active
+        color: $icon-hover-color
+
+
+.menu-desc:hover .btn-side-menu-add
+    visibility: visible
+
