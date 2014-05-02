@@ -1360,19 +1360,25 @@
 
         $remove(V.title);
 
-        var mainWinWidth = store.getItem("win:width"),
-            mainWinHeight = store.getItem("win:height"),
-            mainWinX = store.getItem("win:x"),
-            mainWinY = store.getItem("win:y");
+        var winConfig = store.getItem("win:config");
 
-        if (mainWinHeight && mainWinWidth) {
-            mainWindow.width = mainWinWidth;
-            mainWindow.height = mainWinHeight;
-        }
+        if (winConfig) {
+            winConfig = JSON.parse(winConfig);
 
-        if (mainWinX && mainWinY) {
-            mainWindow.x = mainWinX;
-            mainWindow.y = mainWinY;
+            var mainWinWidth = winConfig.w,
+                mainWinHeight = winConfig.h,
+                mainWinX = winConfig.x,
+                mainWinY = winConfig.y;
+
+            if (mainWinHeight && mainWinWidth) {
+                mainWindow.width = mainWinWidth;
+                mainWindow.height = mainWinHeight;
+            }
+
+            if (mainWinX && mainWinY) {
+                mainWindow.x = mainWinX;
+                mainWindow.y = mainWinY;
+            }
         }
 
         if (checkWideScreen()) $text(V.footerPost, T.noLink);
@@ -1535,10 +1541,16 @@
 
     mainWindow.on("close", function() {
         // Save latest window size and position before closing
-        store.setItem("win:width", mainWindow.width);
-        store.setItem("win:height", mainWindow.height);
-        store.setItem("win:x", mainWindow.x);
-        store.setItem("win:y", mainWindow.y);
+
+        var winConfig = {
+            w: mainWindow.width,
+            h: mainWindow.height,
+            x: mainWindow.x,
+            y: mainWindow.y
+        };
+
+        store.setItem("win:config", JSON.stringify(winConfig));
+
         mainWindow.close(true);
     });
 
