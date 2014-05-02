@@ -225,19 +225,18 @@ a { color: #999; }
 }
 
 #edit-subs {
+    @include size(140px, 32px);
     position: fixed;
     bottom: 0;
-    width: 140px;
     background-color: #262b30;
     z-index: 1;
-    height: 32px;
     border-top: 1px solid rgba(0, 0, 0, .5);
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
     text-align: center;
 }
 
 .btn-edit-sub {
-    width: 50%;
+    @include size(50%, 28px);
     font-size: 22px;
     color: #777;
     display: inline-block;
@@ -245,7 +244,6 @@ a { color: #999; }
     position: absolute;
     top: 50%;
     margin-top: -14px;
-    height: 28px;
 }
 
 #btn-add-subs { left: 0; }
@@ -280,18 +278,22 @@ a { color: #999; }
     color: whiteSmoke;
 }
 
-.channel { margin: 0; font-size: 14px; padding: 5px 10px; }
+.channel {
+    margin: 0;
+    font-size: 14px;
+    padding: 5px 10px;
+}
 
 .channel > p { margin: 0; }
 
 .channel > div { padding-left: 10px; }
 
 .channel > div p {
+    @extend %overflow-ellipsis;
     font-size: 10px;
     color: #BBB;
     margin: 4px 0;
     text-transform: capitalize;
-    text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
     letter-spacing: 1px;
     line-height: 14px;
 }
@@ -303,11 +305,11 @@ a { color: #999; }
 .sub-active { text-shadow: 0 0 7px #CCC; border-left: 3px solid #4286F5; }
 
 #menu-container {
-    overflow-y: auto; overflow-x: hidden;
+    @include size(140px, 100%);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: absolute;
-    width: 140px;
     z-index: 0;
-    height: 100%;
     background-color: #262b30;
 }
 
@@ -350,12 +352,11 @@ a { color: #999; }
 }
 
 .link-thumb div {
+    @include size(60px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 70px;
     background-color: #333;
-    height: 60px;
-    width: 60px;
     margin: 0;
     border-radius: 5px;
     box-shadow: inset 0 0 3px #333;
@@ -387,8 +388,7 @@ a { color: #999; }
 
 .link-active,
 .link-selected {
-    background-image: -webkit-linear-gradient(top, #599ad2, #3d6fba);
-    background-image: linear-gradient(top, #599ad2, #3d6fba);
+    background-image: linear-gradient(#599ad2, #3d6fba);
 }
 
 .link-active .link-title,
@@ -416,39 +416,6 @@ a { color: #999; }
 }
 
 .link-active:visited .link-info .link-title { color: whiteSmoke; }
-
-.list-button { padding: 20px; }
-
-.list-button > span {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-    display: block;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.comments-button,
-.list-button > span,
-.btn-general {
-    color: #555;
-    background-image: -webkit-linear-gradient(whiteSmoke 0%, #CCC 100%);
-    background-image: linear-gradient(whiteSmoke 0%, #CCC 100%);
-    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 inset,
-                rgba(255, 255, 255, .3) 0 25px 30px -12px inset,
-                rgba(0, 0, 0, .6) 0 1px 2px;
-}
-
-.btn-general {
-    background-color: #BBB;
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-weight: 700;
-    text-align: center;
-    border: 0;
-}
 
 /*---------------------------- Cabecera -----------------------------*/
 
@@ -892,23 +859,16 @@ header > div {
     text-align: center;
 }
 
-.move-data-field { width: 100%; height: 70px; }
-
-#btn-save-data {
-    width: 70%;
-    margin: 0 auto;
-    line-height: 20px;
+.move-data-field {
+    @include size(100%, 70px);
 }
 
-#btn-import-data { width: 175px; }
-
 .view-footer {
+    @include size(100%, 26px);
     display: none;
-    width: 100%;
     position: absolute;
     bottom: 0;
-    height: 26px;
-    background-color: #bbb;
+    background-image: linear-gradient(#d5d5d5, #b0b0b0);
     border-top: 1px solid #aaa;
     box-shadow: inset 0 1px 1px #eee;
 }
@@ -923,8 +883,6 @@ header > div {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
-.btn-footer { position: absolute; }
 
 .footer-refresh {
     background-image: url('../img/refresh1.png');
