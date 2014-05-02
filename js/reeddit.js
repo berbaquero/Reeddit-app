@@ -1542,6 +1542,14 @@
         mainWindow.close(true);
     });
 
+    mainWindow.on("blur", function() {
+        $addClass(body, "inactive");
+    });
+
+    mainWindow.on("focus", function() {
+        $removeClass(body, "inactive");
+    });
+
     var fs = require("fs"),
         saveLink;
 
