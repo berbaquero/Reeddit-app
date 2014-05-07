@@ -550,7 +550,6 @@ header > div {
     font-size: 14px;
     top: 14px;
     font-weight: 700;
-    transition-duration: 300ms;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -562,8 +561,6 @@ header > div {
     padding: 0 5px;
     color: $header-black;
     border-radius: 5px;
-    transition-duration: 100ms;
-    transition-property: background-color;
 
     &:hover {
         background-color: lighten($header-black, 25%);
