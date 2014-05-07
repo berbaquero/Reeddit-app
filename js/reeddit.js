@@ -1347,6 +1347,9 @@
 
     $q("#header-icon").addEventListener("dblclick", function() {
         mainWindow.height = 1048;
+        // require('nw.gui').Window.get().showDevTools();
+    });
+
     $id("btn-new-sub").addEventListener("click", function() {
         V.Subreddits.showManualInput();
     });
