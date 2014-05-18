@@ -34,7 +34,7 @@ To build Reeddit, I used these awesome resources:
 
 ### Compatibility
 
-I've only tested Reeddit.app on OS X 10.7, so I guess it should work on newer versions, too.
+Reeddit.app works on OS X 10.7 and up.
 
 ### License
 
