@@ -915,6 +915,10 @@ header > div {
         -webkit-transform: none !important;
         transform: none !important;
     }
+
+    #sub-title {
+        pointer-events: none;
+    }
 }
 
 @media only screen and (min-width: 490px) and (max-width: 759px) {
