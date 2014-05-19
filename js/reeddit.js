@@ -36,7 +36,9 @@
 
         moveData: "<div class='new-form move-data'><div class='close-form'>close</div><div class='move-data-exp'><h3>Export & Backup</h3><p>Tip: save on your Dropbox folder, so you can import your subscriptions to any other Reeddit instance (e.g. your mobile or tablet).</p><div class='btn-general' id='btn-save-data'>Save Data</div></div><div class='move-data-imp'><h3>Import & Restore</h3><p>Load your subscription from any other Reeddit instance - after choosing the file, Reedit will refresh.</p><input id='btn-import-data' type='file'></div></div>",
 
-        updater: "<div class='new-form move-data'><div class='close-form'>close</div><h3>{{version.label}} available</h3><p>Updated on: {{update.date}}</p><p>• {{update.title}}:</p><p>{{update.message}}</p><div class='btn-general' id='btn-download' data-link='{{version.download_url}}'>Download new version</div></div>"
+        updater: "<div class='new-form move-data'><div class='close-form'>close</div><h3>{{version.label}} available</h3><p>Updated on: {{update.date}}</p><p>• {{update.title}}:</p><p>{{update.message}}</p><div class='btn-general' id='btn-download' data-link='{{version.download_url}}'>Download new version</div></div>",
+
+        notification: '<div class="notification">{{text}}</div>'
     };
 
     var doc = win.document,
@@ -485,6 +487,17 @@
                     if (title) $removeClass(btns[i], css.hide);
                     else $addClass(btns[i], css.hide);
                 }
+            },
+
+            showNotification: function(text) {
+                $append(body, T.notification.replace('{{text}}', text));
+                var notification = $q('.notification');
+                V.Anims.bounceInDown(notification);
+                setTimeout(function() {
+                    V.Anims.dismiss(notification, function() {
+                        $remove(notification);
+                    });
+                }, (1500 + 500));
             }
         },
 
