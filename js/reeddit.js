@@ -1445,7 +1445,22 @@
     // Share Menu
     var shareMenu = new gui.Menu();
     shareMenu.append(new gui.MenuItem({
-        label: 'Tweet',
+        label: 'Reading List',
+        click: function() {
+            sharing.readingList(M.Posts.list[currentThread].url, function() {
+                V.Actions.showNotification("Added to Reading List");
+            });
+        }
+    }));
+    shareMenu.append(new gui.MenuItem({
+        label: 'Copy Link',
+        click: function() {
+            sharing.clipboard(M.Posts.list[currentThread].url);
+            V.Actions.showNotification("Copied to Clipboard");
+        }
+    }));
+    shareMenu.append(new gui.MenuItem({
+        label: 'Twitter',
         click: function() {
             var url = M.Posts.list[currentThread].url,
                 title = M.Posts.list[currentThread].title;

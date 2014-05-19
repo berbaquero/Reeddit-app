@@ -22,5 +22,8 @@
     "resizable": true,
     "show": false
   },
-  "no-edit-menu": true
+  "no-edit-menu": true,
+  "dependencies": {
+    "node-applescript": "*"
+  }
 }
