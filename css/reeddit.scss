@@ -1,6 +1,7 @@
 @import "base";
 @import "buttons";
 @import "inactive";
+@import "animations";
 
 * {
     color: #373737;
@@ -1021,5 +1022,3 @@ header > div {
 
     #edit-subs { height: 4%; }
 }
-
-@import "animations";

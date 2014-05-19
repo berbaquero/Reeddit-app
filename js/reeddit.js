@@ -536,6 +536,12 @@
                     el.style.opacity = 1;
                     $removeClass(el, "anim-bounceInDown");
                 }, 500);
+            },
+
+            dismiss: function(el, callback) {
+                el.style.opacity = '';
+                $addClass(el, "anim-dismiss");
+                if (callback) setTimeout(callback, 200);
             }
         }
     };
