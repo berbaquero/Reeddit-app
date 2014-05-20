@@ -22,7 +22,6 @@
     "resizable": true,
     "show": false
   },
-  "no-edit-menu": true,
   "devDependencies": {
     "applescript": "~0.2.1"
   }
