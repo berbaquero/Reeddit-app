@@ -21,7 +21,7 @@ var sharing = (function() {
 
     var addToReadingList = function(url, next) {
         var script = scriptString.replace('{{URL}}', url);
-        applescript.execString(script, function(err, succ) {
+        getAppleScript().execString(script, function(err, succ) {
             if (next) next();
         });
     };
