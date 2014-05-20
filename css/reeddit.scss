@@ -176,14 +176,6 @@ a { color: #999; }
     -webkit-box-flex: 1;
 }
 
-#btn-share {
-    -webkit-box-flex: 1;
-    margin-right: 10px;
-    display: inline-block;
-    font-size: 13px;
-    padding: 3px 6px;
-}
-
 #summary-sub { color: #FAFAFA; text-align: left; }
 
 #summary-comment-num { text-align: right; text-decoration: none; display: block; }
@@ -932,6 +924,10 @@ header > div {
     .item-to-edit .btn-remove-channel,
     .item-to-edit .btn-remove-subreddit {
         background-image: url('../img/delete@2x.png');
+    }
+
+    .btn-share {
+        background-image: url(../img/share@2x.png);
     }
 }
 
