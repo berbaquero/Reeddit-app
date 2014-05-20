@@ -1364,9 +1364,8 @@
         }
     }, false);
 
-    $q("#header-icon").addEventListener("dblclick", function() {
+    V.headerIcon.addEventListener("dblclick", function(e) {
         mainWindow.height = 1048;
-        // require('nw.gui').Window.get().showDevTools();
     });
 
     $id("btn-new-sub").addEventListener("click", function() {
@@ -1453,13 +1452,6 @@
         }
     }));
     shareMenu.append(new gui.MenuItem({
-        label: 'Copy Link',
-        click: function() {
-            sharing.clipboard(M.Posts.list[currentThread].url);
-            V.Actions.showNotification("Copied to Clipboard");
-        }
-    }));
-    shareMenu.append(new gui.MenuItem({
         label: 'Twitter',
         click: function() {
             var url = M.Posts.list[currentThread].url,
@@ -1473,6 +1465,13 @@
             var title = M.Posts.list[currentThread].title,
                 url = M.Posts.list[currentThread].url;
             openURL("mailto:?subject=" + title + "&body=" + url + "%0A%0a%0A%0aShared via @ReedditApp.");
+        }
+    }));
+    shareMenu.append(new gui.MenuItem({
+        label: 'Copy Link',
+        click: function() {
+            sharing.clipboard(M.Posts.list[currentThread].url);
+            V.Actions.showNotification("Copied to Clipboard");
         }
     }));
 
