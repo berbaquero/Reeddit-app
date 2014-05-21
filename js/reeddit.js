@@ -495,7 +495,7 @@
                 V.Anims.bounceInDown(notification);
                 setTimeout(function() {
                     V.Anims.dismiss(notification, function() {
-                        $remove(notification);
+                        $remove($q('.notification'));
                     });
                 }, (1500 + 500));
             }

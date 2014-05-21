@@ -60,13 +60,13 @@ function $text(el, s) {
 }
 
 function $remove(el) {
-	el.parentNode.removeChild(el);
+	if (el) el.parentNode.removeChild(el);
 }
 
 // Classes
 
 function $addClass(el, c) {
-	if(el) el.classList.add(c);
+	if (el) el.classList.add(c);
 }
 
 function $removeClass(el, c) {
