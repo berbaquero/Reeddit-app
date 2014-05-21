@@ -296,6 +296,9 @@
                         $append(li, p);
                         $append(subsList, li);
                         M.Subreddits.add(subs);
+                        V.Actions.showNotification("'" + subs + "' added")
+                    } else {
+                        V.Actions.showNotification("Subreddit already added");
                     }
                 }
             },
@@ -1251,9 +1254,8 @@
     tappable('.btn-add-sub', {
         onTap: function(e, target) {
             var parent = target.parentNode,
-                subTitle = parent.querySelector(".subreddit-title");
-            subTitle.style.color = "#2b9900"; // 'adding sub' little UI feedback
-            var newSub = subTitle.innerText;
+                subTitle = parent.querySelector(".subreddit-title"),
+                newSub = subTitle.innerText;
             V.Subreddits.insert(newSub);
         },
         activeClass: 'button-active'
