@@ -1500,7 +1500,7 @@
     // Title Menu
     var submenu = new gui.Menu();
     submenu.append(new gui.MenuItem({
-        label: 'Add Subscriptions',
+        label: 'Add Subreddits',
         click: V.Actions.loadForAdding
     }));
 
