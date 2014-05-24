@@ -1009,7 +1009,7 @@
         onTap: C.Subreddits.addFromNewForm
     });
 
-    tappable("#btn-share", {
+    tappable(".btn-share", {
         onTap: function(e) {
             shareMenu.popup(e.x, e.y);
         },
