@@ -130,11 +130,23 @@ a { color: #999; }
 .comment-body {
     -webkit-user-select: text;
     user-select: text;
-}
 
-.comment-body p {
-    margin: 10px 0;
-    color: #3D525E;
+    a {
+        color: #777;
+        padding: 2px 3px;
+        margin-left: -3px;
+
+        &:hover {
+            border-radius: 4px;
+            background-color: #e5e5e5;
+            text-decoration: none;
+        }
+    }
+
+    p {
+        margin: 10px 0;
+        color: #3D525E;
+    }
 }
 
 #link-summary {
