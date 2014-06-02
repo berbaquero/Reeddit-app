@@ -811,7 +811,7 @@
             loadSaved: function() { // Should only execute when first loading the app
                 M.Channels.list = store.getItem('channels');
                 if (M.Channels.list) M.Channels.list = JSON.parse(M.Channels.list);
-                else M.Channels.list = [defaultChannel]; // Load default channel(s)
+                else M.Channels.list = defaultChannel; // Load default channel(s)
                 V.Channels.loadList();
             },
 
