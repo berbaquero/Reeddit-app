@@ -83,12 +83,24 @@
         },
         currentView = view.main;
 
-    var defaultSubs = ["frontPage", "pics", "IAmA", "AskReddit", "worldNews", "todayilearned", "tech", "science", "atheism", "reactiongifs", "books", "videos", "AdviceAnimals", "funny", "aww", "earthporn"];
+    var defaultSubs = ["frontPage", "IAmA", "AskReddit", "worldNews", "todayilearned", "reactiongifs", "FanTheories", "ShowerThoughts", "ExplainLikeImFive", "Philosophy", "DataIsBeautiful", "InternetIsBeautiful", "Documentaries", "history", "DIY", "personalfinance"];
 
-    var defaultChannel = {
+    var defaultChannel = [{
         name: "Media",
-        subs: ["movies", "games", "television", "music"]
-    };
+        subs: ["music", "movies", "television", "games", "books", "videos"]
+    }, {
+        name: "Technology",
+        subs: ["Tech", "Futurology", "space", "gadgets"]
+    }, {
+        name: "Science",
+        subs: ["Science", "AskScience"]
+    }, {
+        name: "Pictures",
+        subs: ["pics", "photoshopbattles", "EarthPorn", "aww"]
+    }, {
+        name: "Meta",
+        subs: ["announcements", "blog"]
+    }];
 
     var M = { // Model
 
