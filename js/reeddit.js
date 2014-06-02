@@ -2,7 +2,7 @@
 
     var T = { // Templates
 
-        Posts: "{{#children}}<article class='link-wrap'><a class='link' href='{{data.url}}' data-id='{{data.id}}' target='_blank'><div class='link-thumb'><div style='background-image: url({{data.thumbnail}})'></div></div><div class='link-info'><p class='link-title'>{{data.title}}</p><p class='link-domain'>{{data.domain}}</p><p class='link-sub'>{{data.subreddit}}</p>{{#data.over_18}}<span class='link-label nsfw'>NSFW</span>{{/data.over_18}}{{#data.stickied}}<span class='link-label stickied'>Stickied</span>{{/data.stickied}}</div></a><div class='to-comments' data-id='{{data.id}}'><div class='right-arrow'></div></div></article>{{/children}}<div class='list-button'><span id='more-links'>More</span></div><div id='main-overflow'></div>",
+        Posts: "{{#children}}<article class='link-wrap'><a class='link' href='{{data.url}}' data-id='{{data.id}}' target='_blank'><div class='link-thumb'><div style='background-image: url({{data.thumbnail}})'></div></div><div class='link-info'><p class='link-title'>{{data.title}}</p><p class='link-domain'>{{data.domain}}</p><p class='link-sub'>{{data.subreddit}}</p>{{#data.over_18}}<span class='link-label nsfw'>NSFW</span>{{/data.over_18}}{{#data.stickied}}<span class='link-label stickied'>Stickied</span>{{/data.stickied}}</div></a><div class='to-comments' data-id='{{data.id}}'><div class='right-arrow'></div></div></article>{{/children}}<div id='more-links' class='btn-general btn-load-more'>More</div><div id='main-overflow'></div>",
 
         Subreddits: {
 
@@ -30,7 +30,7 @@
 
         formEditChannel: '<div class="new-form" id="form-new-channel"><div class="form-left-corner"><div class="btn-general" id="btn-submit-channel" data-op="update">Update Channel</div></div><div class="close-form">close</div><input type="text" id="txt-channel" placeholder="Channel name" /><div id="subs-for-channel"></div><div id="btn-add-another-sub">Add additional subreddit</div></div>',
 
-        botonCargarMasSubs: "<div class='list-button'><span id='more-subs'>More</span></div>",
+        botonCargarMasSubs: "<div id='more-subs' class='btn-general btn-load-more'>More</div>",
 
         noLink: "No Post Selected",
 
@@ -380,7 +380,7 @@
                     }
                 }
                 // Remove 'More links' button if there are less than 30 links
-                if (linksCount < 30) $remove($id("more-links").parentNode);
+                if (linksCount < 30) $remove($id("more-links"));
                 if (!paging) V.Anims.reveal(main);
             }
         },
@@ -588,7 +588,7 @@
                     loader = $el("div", "loader");
                 if (paging) {
                     // Se quita el boton de 'More' actual
-                    $remove($id("more-links").parentNode);
+                    $remove($id("more-links"));
                     $append(main, loader);
                 } else {
                     main.scrollTop = 0; // Sube al top del contenedor
