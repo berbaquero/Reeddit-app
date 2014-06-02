@@ -134,7 +134,9 @@
                 }
             },
 
-            idLast: ''
+            idLast: '',
+            shareTitle: '',
+            shareURL: ''
         },
 
         Subreddits: {
@@ -1312,6 +1314,11 @@
 
     V.headerIcon.addEventListener("dblclick", function(e) {
         mainWindow.height = 1048;
+
+    delegate(V.mainWrap, ".link", "contextmenu", function(e, target) {
+        M.Posts.shareURL = target.href;
+        M.Posts.shareTitle = target.querySelector(".link-title").innerText;
+        shareMenu.popup(e.x + 1, e.y);
     });
 
     $id("btn-new-sub").addEventListener("click", function() {
@@ -1392,7 +1399,7 @@
     shareMenu.append(new gui.MenuItem({
         label: 'Reading List',
         click: function() {
-            sharing.readingList(M.Posts.list[currentThread].url, function() {
+            sharing.readingList(M.Posts.shareURL, function() {
                 V.Actions.showNotification("Added to Reading List");
             });
         }
@@ -1400,23 +1407,23 @@
     shareMenu.append(new gui.MenuItem({
         label: 'Twitter',
         click: function() {
-            var url = M.Posts.list[currentThread].url,
-                title = M.Posts.list[currentThread].title;
+            var url = M.Posts.shareURL,
+                title = M.Posts.shareTitle;
             openWindow("https://twitter.com/intent/tweet?text=\"" + encodeURI(title) + "\" —&url=" + url + "&via=ReedditApp&related=ReedditApp", 520, 430);
         }
     }));
     shareMenu.append(new gui.MenuItem({
         label: 'Email',
         click: function() {
-            var title = M.Posts.list[currentThread].title,
-                url = M.Posts.list[currentThread].url;
+            var title = M.Posts.shareTitle,
+                url = M.Posts.shareURL;
             openURL("mailto:?subject=" + title + "&body=" + url + "%0A%0a%0A%0aShared via @ReedditApp.");
         }
     }));
     shareMenu.append(new gui.MenuItem({
         label: 'Copy Link',
         click: function() {
-            sharing.clipboard(M.Posts.list[currentThread].url);
+            sharing.clipboard(M.Posts.shareURL);
             V.Actions.showNotification("Copied to Clipboard");
         }
     }));
