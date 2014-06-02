@@ -1015,207 +1015,167 @@
         });
     };
 
-    // Taps
-    tappable("#btn-save-data", saveData);
+    // Clicks
 
-    tappable("#btn-add-new-sub", {
-        onTap: C.Subreddits.addFromNewForm
+    clickable(body, "#btn-save-data", saveData);
+
+    clickable(body, "#btn-add-new-sub", C.Subreddits.addFromNewForm);
+
+    delegate(body, ".btn-share", "click", function(e) {
+        M.Posts.shareTitle = M.Posts.list[currentThread].title;
+        M.Posts.shareURL = M.Posts.list[currentThread].url;
+        shareMenu.popup(e.x, e.y);
     });
 
-    tappable(".btn-share", {
-        onTap: function(e) {
-            shareMenu.popup(e.x, e.y);
-        },
-        allowClick: false
-    });
-
-    tappable("#detail-wrap a", { // All link anchors from the detail view
-        onTap: function(e, target) {
-            openURL(target.getAttribute("href"));
-        },
-        allowClick: false
-    });
-
-    tappable("#btn-submit-channel", {
-        onTap: function(e, target) {
-            var txtChannelName = $id("txt-channel"),
-                operation = target.getAttribute("data-op");
-            var channelName = txtChannelName.value;
-            if (!channelName) {
-                txtChannelName.placeholder = "Enter a Channel name!";
-                V.Anims.shakeForm();
-                return;
-            }
-
-            var subreddits = [];
-            var subs = $qAll("#subs-for-channel input");
-            for (var i = 0; i < subs.length; i++) {
-                var sub = subs[i].value;
-                if (!sub) continue;
-                subreddits.push(sub);
-            }
-            if (subreddits.length === 0) {
-                subs[0].placeholder = "Enter at least one subreddit!";
-                V.Anims.shakeForm();
-                return;
-            }
-
-            switch (operation) {
-                case "save":
-                    // Look for Channel name in the saved ones
-                    var savedChannel = M.Channels.getByName(channelName);
-                    if (savedChannel) { // If it's already saved
-                        txtChannelName.value = "";
-                        txtChannelName.placeholder = "'" + channelName + "' already exists.";
-                        V.Anims.shakeForm();
-                        return;
-                    }
-
-                    C.Channels.add(channelName, subreddits);
-
-                    break;
-
-                case "update":
-                    // Remove current and add new
-                    C.Channels.remove(M.Channels.editing);
-                    C.Channels.add(channelName, subreddits);
-
-                    break;
-            }
-
-            // confirmation feedback
-            $remove(target);
-            $append($q(".form-left-corner"), "<p class='channel-added-msg'>'" + channelName + "' " + operation + "d. Cool!</p>");
-
-            V.Anims.bounceOut($q(".new-form"), V.Actions.removeModal);
-        },
-        activeClass: "btn-general-active"
-    });
-
-    tappable("#btn-add-another-sub", {
-        onTap: function() {
-            var container = $id("subs-for-channel");
-            $append(container, "<input type='text' placeholder='Extra subreddit'></input>");
-            container.scrollTop = container.innerHeight;
+    V.detailWrap.addEventListener("click", function(e) {
+        // All link anchors from the detail view
+        if (e.target.tagName === "A") {
+            e.preventDefault();
+            openURL(e.target.getAttribute("href"));
         }
     });
 
-    tappable('.channel', {
-        onTap: function(e, target) {
-            var channel = target;
-            var channelName = channel.getAttribute("data-title");
-            V.Actions.moveMenu(move.left);
-            if (channelName === M.currentSelection.name && !editingSubs) return;
-            V.Subreddits.cleanSelected();
-            $addClass(channel, "channel-active");
-            if (currentView === view.comments) V.Actions.backToMainView();
-            C.Channels.loadPosts(M.Channels.getByName(channelName));
-        },
-        activeClassDelay: 100,
-        activeClass: 'link-active'
-    });
-
-    tappable(".replies-button", {
-        onTap: function(e, target) {
-            var parent = target,
-                commentID = parent.getAttribute('data-comment-id'),
-                comments = replies[commentID];
-            C.Comments.load(comments, parent.parentNode);
-            $remove(parent);
-        },
-        activeClass: 'replies-button-active'
-    });
-
-    tappable(".sub", {
-        onTap: function(e, target) {
-            var sub = target;
-            V.Actions.moveMenu(move.left);
-            C.Subreddits.loadPosts(sub.firstChild.textContent);
-            V.Subreddits.cleanSelected();
-            $addClass(sub, "sub-active");
-            if (currentView === view.comments) V.Actions.backToMainView();
-        },
-        allowClick: false,
-        activeClassDelay: 100,
-        activeClass: 'link-active'
-    });
-
-    tappable(".btn-to-main", {
-        onTap: function() {
-            location.hash = "#";
+    clickable(body, "#btn-submit-channel", function(target) {
+        var txtChannelName = $id("txt-channel"),
+            operation = target.getAttribute("data-op");
+        var channelName = txtChannelName.value;
+        if (!channelName) {
+            txtChannelName.placeholder = "Enter a Channel name!";
+            V.Anims.shakeForm();
+            return;
         }
+
+        var subreddits = [];
+        var subs = $qAll("#subs-for-channel input");
+        for (var i = 0; i < subs.length; i++) {
+            var sub = subs[i].value;
+            if (!sub) continue;
+            subreddits.push(sub);
+        }
+        if (subreddits.length === 0) {
+            subs[0].placeholder = "Enter at least one subreddit!";
+            V.Anims.shakeForm();
+            return;
+        }
+
+        switch (operation) {
+            case "save":
+                // Look for Channel name in the saved ones
+                var savedChannel = M.Channels.getByName(channelName);
+                if (savedChannel) { // If it's already saved
+                    txtChannelName.value = "";
+                    txtChannelName.placeholder = "'" + channelName + "' already exists.";
+                    V.Anims.shakeForm();
+                    return;
+                }
+
+                C.Channels.add(channelName, subreddits);
+
+                break;
+
+            case "update":
+                // Remove current and add new
+                C.Channels.remove(M.Channels.editing);
+                C.Channels.add(channelName, subreddits);
+
+                break;
+        }
+
+        // confirmation feedback
+        $remove(target);
+        $append($q(".form-left-corner"), "<p class='channel-added-msg'>'" + channelName + "' " + operation + "d. Cool!</p>");
+
+        V.Anims.bounceOut($q(".new-form"), V.Actions.removeModal);
     });
 
-    tappable(".btn-refresh", {
-        onTap: function(e) {
-            var origin = e.target.getAttribute("data-origin");
-            switch (origin) {
-                case "footer-main":
-                    refreshCurrentStream();
-                    break;
-                case "footer-detail":
+    clickable(body, "#btn-add-another-sub", function() {
+        var container = $id("subs-for-channel");
+        $append(container, "<input type='text' placeholder='Extra subreddit'></input>");
+        container.scrollTop = container.innerHeight;
+    });
+
+    clickable(V.detailWrap, ".replies-button", function(target) {
+        var parent = target,
+            commentID = parent.getAttribute('data-comment-id'),
+            comments = replies[commentID];
+        C.Comments.load(comments, parent.parentNode);
+        $remove(parent);
+    });
+
+    clickable(V.Subreddits.listContainer, ".sub", function(target) {
+        var sub = target;
+        V.Actions.moveMenu(move.left);
+        C.Subreddits.loadPosts(sub.firstChild.textContent);
+        V.Subreddits.cleanSelected();
+        $addClass(sub, "sub-active");
+        if (currentView === view.comments) V.Actions.backToMainView();
+    });
+
+    clickable(V.Channels.menuContainer, ".channel", function(target) {
+        var channel = target;
+        var channelName = channel.getAttribute("data-title");
+        V.Actions.moveMenu(move.left);
+        if (channelName === M.currentSelection.name && !editingSubs) return;
+        V.Subreddits.cleanSelected();
+        $addClass(channel, "channel-active");
+        if (currentView === view.comments) V.Actions.backToMainView();
+        C.Channels.loadPosts(M.Channels.getByName(channelName));
+    });
+
+    clickable(body, ".btn-to-main", function() {
+        location.hash = "#";
+    });
+
+    clickable(body, ".btn-refresh", function(target) {
+        var origin = target.getAttribute("data-origin");
+        switch (origin) {
+            case "footer-main":
+                refreshCurrentStream();
+                break;
+            case "footer-detail":
+                if (!currentThread) return;
+                C.Comments.show(currentThread, true);
+                break;
+            default:
+                if (currentView === view.comments) {
                     if (!currentThread) return;
                     C.Comments.show(currentThread, true);
-                    break;
-                default:
-                    if (currentView === view.comments) {
-                        if (!currentThread) return;
-                        C.Comments.show(currentThread, true);
-                    }
-                    if (currentView === view.main) {
-                        refreshCurrentStream();
-                    }
-            }
+                }
+                if (currentView === view.main) {
+                    refreshCurrentStream();
+                }
         }
     });
 
-    tappable(".link", {
-        onTap: function(e, target) {
-            var comm = target;
-            var id = comm.getAttribute("data-id");
-            var link = M.Posts.list[id];
-            if (link.self || isWideScreen) {
-                goToComments(id);
-            } else {
-                var url = comm.getAttribute("href");
-                openURL(url);
-            }
-        },
-        allowClick: false,
-        activeClassDelay: 100,
-        inactiveClassDelay: 200,
-        activeClass: 'link-active'
-    });
-
-    tappable(".to-comments", {
-        onTap: function(e, target) {
-            var id = target.getAttribute('data-id');
+    clickable(V.mainWrap, ".link", function(target) {
+        var comm = target,
+            id = comm.getAttribute("data-id"),
+            link = M.Posts.list[id];
+        if (link.self || isWideScreen) {
             goToComments(id);
-        },
-        activeClass: 'button-active',
-        activeClassDelay: 100
-    });
-
-    tappable("#sub-title", {
-        onTap: function() {
-            if (isLargeScreen) return;
-            V.Actions.moveMenu(showingMenu ? move.left : move.right);
-        },
-        activeClass: 'sub-title-active'
-    });
-
-    tappable("#btn-add-subs", {
-        onTap: function(e) {
-            subsMenu.popup(e.x, e.y - 70);
+        } else {
+            var url = comm.getAttribute("href");
+            openURL(url);
         }
     });
 
-    tappable("#btn-edit-subs", {
-        onTap: V.Actions.loadForEditing
+    clickable(V.mainWrap, ".to-comments", function(target) {
+        var id = target.getAttribute('data-id');
+        goToComments(id);
     });
 
-    tappable("#more-links", {
-        onTap: function() {
+    V.subtitleText.addEventListener("click", function() {
+        if (isLargeScreen) return;
+        V.Actions.moveMenu(showingMenu ? move.left : move.right);
+    });
+
+    $id("btn-add-subs").addEventListener("click", function(e) {
+        subsMenu.popup(e.x, e.y - 70);
+    });
+
+    $id("btn-edit-subs").addEventListener("click", V.Actions.loadForEditing);
+
+    clickable(V.mainWrap, "#more-links", function() {
             doByCurrentSelection(function() {
                 var url;
                 if (M.currentSelection.name.toUpperCase() === 'frontPage'.toUpperCase()) url = urlInit + "r/" + M.Subreddits.getAllString() + "/";
@@ -1225,27 +1185,12 @@
                 var channel = M.Channels.getByName(M.currentSelection.name);
                 C.Posts.load(urlInit + M.Channels.getURL(channel) + '/', '&after=' + M.Posts.idLast);
             });
-        },
-        activeClass: 'list-button-active'
-    });
-
-    tappable("#btn-sub-man", {
-        onTap: function() {
-            V.Subreddits.showManualInput();
-        },
-        activeClass: 'list-button-active'
-    });
-
-    tappable("#btn-add-channel", {
-        onTap: function() {
-            V.Channels.showNewChannelForm();
-        },
-        activeClass: 'list-button-active'
-    });
-
-    tappable('#more-subs', {
-        onTap: function(e, target) {
-            $remove(target.parentNode);
+        }
+        // activeClass: 'list-button-active'
+    );
+    // TO-DO: TEST
+    clickable(V.mainWrap, '#more-subs', function(target) {
+            $remove(target);
             var main = V.mainWrap,
                 loader = $el("div", "loader");
             $append(main, loader);
@@ -1260,67 +1205,53 @@
                 $addClass(loader, "loader-error");
                 $text(loader, 'Error loading more subreddits.');
             });
-        },
-        activeClass: 'list-button-active'
-    });
-
-    tappable('.btn-add-sub', {
-        onTap: function(e, target) {
+        }
+        // activeClass: 'list-button-active'
+    );
+    // TO-TEST
+    clickable(V.mainWrap, ".btn-add-sub", function(target) {
             var parent = target.parentNode,
                 subTitle = parent.querySelector(".subreddit-title"),
                 newSub = subTitle.innerText;
             V.Subreddits.insert(newSub);
-        },
-        activeClass: 'button-active'
-    });
-
-    tappable(".btn-remove-subreddit", {
-        onTap: function(e, target) {
-            C.Subreddits.remove(target.getAttribute('data-name'));
-        },
-        activeClass: 'button-active'
-    });
-
-    tappable(".btn-remove-channel", {
-        onTap: function(e, target) {
-            C.Channels.remove(target.getAttribute('data-title'));
-        },
-        activeClass: 'button-active'
-    });
-
-    tappable(".btn-edit-channel", {
-        onTap: function(e, target) {
-            C.Channels.edit(target.getAttribute('data-title'));
-        },
-        activeClass: 'button-active'
-    });
-
-    tappable(".close-form", {
-        onTap: function() {
-            V.Actions.removeModal();
         }
+        // activeClass: 'button-active'
+    );
+    // TO-TEST
+    clickable(V.mainWrap, ".btn-remove-subreddit", function(target) {
+            C.Subreddits.remove(target.getAttribute('data-name'));
+        }
+        // activeClass: 'button-active'
+    );
+    // TO-TEST
+    clickable(V.mainWrap, ".btn-remove-channel", function(target) {
+            C.Channels.remove(target.getAttribute('data-title'));
+        }
+        // activeClass: 'button-active'
+    );
+    // TO-TEST
+    clickable(V.mainWrap, ".btn-edit-channel", function(target) {
+            C.Channels.edit(target.getAttribute('data-title'));
+        }
+        // activeClass: 'button-active'
+    );
+
+    clickable(body, ".close-form", V.Actions.removeModal);
+
+    delegate($id("sorting"), ".sort-option", "click", function(e) {
+        e.preventDefault();
+        var choice = e.target;
+        var sortingChoice = choice.textContent;
+        if (sortingChoice === currentSortingChoice) return;
+        var choices = $qAll(".sorting-choice");
+        for (var i = 0, l = choices.length; i < l; i++) {
+            $removeClass(choices[i], "sorting-choice");
+        }
+        $addClass(choice, "sorting-choice");
+        C.Sorting.change(sortingChoice);
     });
 
-    tappable('#sorting p', {
-        onTap: function(e, target) {
-            var choice = target;
-            var sortingChoice = choice.textContent;
-            if (sortingChoice === currentSortingChoice) return;
-            var choices = $qAll(".sorting-choice");
-            for (var i = 0, l = choices.length; i < l; i++) {
-                $removeClass(choices[i], "sorting-choice");
-            }
-            $addClass(choice, "sorting-choice");
-            C.Sorting.change(sortingChoice);
-        },
-        activeClass: 'link-active',
-        activeClassDelay: 100
-    });
-
-    tappable("#imp-exp", {
-        onTap: importExportData,
-        activeClass: "link-active"
-    });
+    $id("imp-exp").addEventListener("click", importExportData);
 
     body.addEventListener("change", function(ev) {
         if (ev.target.id === "btn-import-data") {

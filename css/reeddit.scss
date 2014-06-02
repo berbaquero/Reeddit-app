@@ -363,6 +363,15 @@ a { color: #999; }
     cursor: none;
     -webkit-tap-highlight-color: transparent;
     -webkit-box-flex: 1; box-flex: 1;
+
+    &:active {
+        background-image: linear-gradient(#599ad2, #3d6fba);
+    }
+
+    &:focus {
+        background-color: #eee;
+        outline: thin;
+    }
 }
 
 .link-wrap {
@@ -416,19 +425,45 @@ a { color: #999; }
     display: inline;
 }
 
-.link-active,
-.link-selected {
+%bg-blue-gradient {
     background-image: linear-gradient(#599ad2, #3d6fba);
 }
 
-.link-active .link-title,
-.link-selected .link-title { color: white; text-shadow: 0 1px 0 #000; }
+.sub,
+.channel,
+.sort-option {
 
-.link-active .link-domain,
-.link-active .link-sub,
-.link-selected .link-domain,
-.link-selected .link-sub,
-#channels .link-active div p { color: #ADD0EB; }
+    &:active {
+        @extend %bg-blue-gradient;
+    }
+}
+
+#imp-exp:active {
+    @extend %bg-blue-gradient;
+}
+
+$active-link-color: #add0eb;
+
+.link:active,
+.link-selected {
+    @extend %bg-blue-gradient;
+
+    .link-title {
+        color: white;
+        text-shadow: 0 1px 0 #000;
+    }
+
+    .link-domain,
+    .link-sub,
+    .link-domain,
+    .link-sub {
+        color: $active-link-color;
+    }
+}
+
+.channel:active div p {
+    color: $active-link-color;
+}
 
 $nsfw: #D13;
 $stickied: #71B0D3;
@@ -462,8 +497,6 @@ $stickied: #71B0D3;
         color: white;
     }
 }
-
-.link-active:visited .link-info .link-title { color: whiteSmoke; }
 
 /*---------------------------- Cabecera -----------------------------*/
 
@@ -562,6 +595,10 @@ header > div {
     display: -webkit-box; display: box;
     -webkit-box-align: center; box-align: center;
     -webkit-box-flex: 1; box-flex: 1;
+
+    &:active {
+        background-color: #ddd;
+    }
 }
 
 .to-comments div {
@@ -571,25 +608,6 @@ header > div {
     background-repeat: no-repeat;
     background-size: 24px;
     margin: 0 auto;
-}
-
-.button-active { background-color: #ddd; }
-
-.comments-button {
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    display: block;
-    text-align: center;
-    width: 90px;
-    margin: 0 auto;
-}
-
-.replies-button-active, .list-button-active {
-    background-image: -webkit-linear-gradient(top, #ccc 0%, #777 100%) !important;
-    background-image: linear-gradient(top, #ccc 0%, #777 100%) !important;
-    color: white !important;
 }
 
 #main-title {

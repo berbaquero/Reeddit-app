@@ -72,3 +72,52 @@ function $addClass(el, c) {
 function $removeClass(el, c) {
 	if (el) el.classList.remove(c);
 }
+
+// Events
+
+function clickable(el, delegatedSelector, callback) {
+	el.addEventListener("click", function(e) {
+		var del = delegation(e, delegatedSelector);
+		if (del.found) {
+			e.preventDefault();
+			callback(del.target);
+		}
+	});
+}
+
+function delegate(el, delegatedSelector, eventName, callback) {
+	el.addEventListener(eventName, function(e) {
+		var del = delegation(e, delegatedSelector);
+		if (del.found) {
+			callback(del.ev, del.target);
+		}
+	});
+}
+
+function delegation(e, selector) {
+	var currentTarget = e.target,
+		found = false,
+		isID = selector.charCodeAt(0) === 35, // #
+		keyword = selector.substring(1);
+	while (currentTarget) {
+		var discriminator = false;
+		if (isID) {
+			discriminator = currentTarget.id === keyword;
+		} else {
+			if (currentTarget.className) {
+				discriminator = currentTarget.className.split(" ").indexOf(keyword) >= 0;
+			}
+		}
+		if (discriminator) {
+			found = true;
+			break;
+		} else {
+			currentTarget = currentTarget.parentNode;
+		}
+	}
+	return {
+		"found": found,
+		"target": currentTarget,
+		"ev": e
+	};
+}
