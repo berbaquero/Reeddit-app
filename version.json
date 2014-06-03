@@ -1,13 +1,13 @@
 {
 	"version": {
-		"label": "v1.9",
-		"number": 1910,
-		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.1/Reeddit.app.zip"
+		"label": "v1.9.2",
+		"number": 1920,
+		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.2/Reeddit.app.zip"
 	},
 	"update": {
 		"trigger": true,
-		"title": "Visually cleaner update",
-		"message": "Various visual and UX improvements to make Reeddit a smoother experience.",
-		"date": "May 7th, 2014"
+		"title": "More sharing options",
+		"message": "Send to Reading List and Copy Link are new sharing options.",
+		"date": "June 3rd, 2014"
 	}
 }
