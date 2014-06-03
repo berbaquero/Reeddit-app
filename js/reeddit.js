@@ -1312,6 +1312,7 @@
 
     V.headerIcon.addEventListener("dblclick", function(e) {
         mainWindow.height = 1048;
+    });
 
     delegate(V.mainWrap, ".link", "contextmenu", function(e, target) {
         M.Posts.shareURL = target.href;
