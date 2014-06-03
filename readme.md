@@ -1,6 +1,6 @@
-# Experimental
+# Reeddit for Mac
 
-This is an experimental version of [Reeddit](https://github.com/berbaquero/reeddit/), for OS X, built using [node-webkit](https://github.com/rogerwang/node-webkit).
+This is a version of [Reeddit](https://github.com/berbaquero/reeddit/), built for OS X, using [node-webkit](https://github.com/rogerwang/node-webkit).
 
 [Download Reeddit.app](https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.2/Reeddit.app.zip).
 
@@ -26,11 +26,10 @@ For screenshots and additional info, visit [Reeddit's Homepage](http://berbaquer
 
 To build Reeddit, I used these awesome resources:
 
-*	[Tappable](https://github.com/cheeaun/tappable) -- Great 'tap' events handler.
 *	[pagedown](http://code.google.com/p/pagedown/) -- Client-side Markdown-to-HTML conversion.
 *	[Mustache.js](https://github.com/janl/mustache.js/) -- Lightweigth client-side templating.
 *	[reziseend.js](https://github.com/porada/resizeend) -- Better 'resize' handler.
-* 	[Iconmonstr](http://iconmonstr.com/) -- Awesome icons.
+* [Iconmonstr](http://iconmonstr.com/) -- Awesome icons.
 
 ### Compatibility
 
