@@ -716,12 +716,12 @@
                             loader = $el("div", "loader");
                         $append(detail, loader);
                         JSONP.get(url, function(result) {
-                            if (currentThread !== id) return; // In case of trying to load a different thread before this one loaded.
+                            loadingComments = false;
+                            if (currentThread !== id || currentView === view.main) return; // In case of trying to load a different thread before this one loaded.
                             C.Misc.updatePostSummary(result[0].data.children[0].data, id);
                             $remove(loader);
                             var comments = result[1].data.children;
                             C.Comments.load(comments, $id("comments-container"), id);
-                            loadingComments = false;
                         }, function() { // On Error
                             loadingComments = false;
                             $addClass(loader, "loader-error");
