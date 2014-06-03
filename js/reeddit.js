@@ -1188,9 +1188,8 @@
                 C.Posts.load(urlInit + M.Channels.getURL(channel) + '/', '&after=' + M.Posts.idLast);
             });
         }
-        // activeClass: 'list-button-active'
     );
-    // TO-DO: TEST
+
     clickable(V.mainWrap, '#more-subs', function(target) {
             $remove(target);
             var main = V.mainWrap,
@@ -1208,34 +1207,29 @@
                 $text(loader, 'Error loading more subreddits.');
             });
         }
-        // activeClass: 'list-button-active'
     );
-    // TO-TEST
+
     clickable(V.mainWrap, ".btn-add-sub", function(target) {
             var parent = target.parentNode,
                 subTitle = parent.querySelector(".subreddit-title"),
                 newSub = subTitle.innerText;
             V.Subreddits.insert(newSub);
         }
-        // activeClass: 'button-active'
     );
-    // TO-TEST
+
     clickable(V.mainWrap, ".btn-remove-subreddit", function(target) {
             C.Subreddits.remove(target.getAttribute('data-name'));
         }
-        // activeClass: 'button-active'
     );
-    // TO-TEST
+
     clickable(V.mainWrap, ".btn-remove-channel", function(target) {
             C.Channels.remove(target.getAttribute('data-title'));
         }
-        // activeClass: 'button-active'
     );
-    // TO-TEST
+
     clickable(V.mainWrap, ".btn-edit-channel", function(target) {
             C.Channels.edit(target.getAttribute('data-title'));
         }
-        // activeClass: 'button-active'
     );
 
     clickable(body, ".close-form", V.Actions.removeModal);
