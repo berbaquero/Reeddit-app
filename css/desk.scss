@@ -21,10 +21,8 @@
 .item-to-edit > div,
 .btn-add-sub,
 .close-form,
-.option,
 .btn-general,
-#btn-add-new-channel,
-#sorting p {
+#btn-add-new-channel {
 	cursor: pointer;
 }
 
@@ -42,6 +40,8 @@
 .menu-desc,
 .loader-error,
 .notification,
+.option,
+.sort-option,
 .subreddit p,
 .view-footer p,
 .move-data h3,
