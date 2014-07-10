@@ -311,7 +311,7 @@
                         $append(li, p);
                         $append(subsList, li);
                         M.Subreddits.add(subs);
-                        V.Actions.showNotification("'" + subs + "' added")
+                        V.Actions.showNotification("'" + subs + "' added");
                     } else {
                         V.Actions.showNotification("Subreddit already added");
                     }
@@ -1310,7 +1310,7 @@
         }
     }, false);
 
-    V.headerIcon.addEventListener("dblclick", function(e) {
+    V.headerIcon.addEventListener("dblclick", function() {
         mainWindow.height = 1048;
     });
 
