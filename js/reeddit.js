@@ -1389,6 +1389,11 @@
             C.Channels.loadPosts(channel);
         });
 
+        // Check for Yosemite
+        if (/10_10_/.test(navigator.userAgent)) {
+            $addClass(body, "yosemite");
+        }
+
         mainWindow.show();
         mainWindow.focus();
     };
