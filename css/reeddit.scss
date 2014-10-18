@@ -1014,6 +1014,14 @@ header > div {
 
 @media only screen and (min-width: 1000px) {
 
+    body {
+        border-top: 1px solid #aaa;
+
+        &.inactive {
+            border-top-color: #ddd;
+        }
+    }
+
     #menu-container,
     #edit-subs { width: 16%; }
 
