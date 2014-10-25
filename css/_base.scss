@@ -5,25 +5,25 @@ $blue: #4286F5;
 $icon-hover-color: $blue;
 
 @mixin size($width, $height: $width) {
-    width: $width;
-    height: $height;
+	width: $width;
+	height: $height;
 }
 
 @mixin letterpress($opacity: .5) {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, $opacity);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, $opacity);
 }
 
 @mixin emboss($top-opacity: .5, $bottom-opacity: .5) {
-    box-shadow: inset rgba(0, 0, 0, $top-opacity) 0 1px 0,
-                rgba(255, 255, 255, $bottom-opacity) 0 1px 0;
+	box-shadow: inset rgba(0, 0, 0, $top-opacity) 0 1px 0,
+				rgba(255, 255, 255, $bottom-opacity) 0 1px 0;
 }
 
 %overflow-ellipsis {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow-x: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow-x: hidden;
 }
 
 %disable-letterpress {
-    text-shadow: none;
+	text-shadow: none;
 }
