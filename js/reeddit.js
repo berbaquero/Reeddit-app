@@ -1408,6 +1408,7 @@
 			});
 		}
 	}));
+
 	shareMenu.append(new gui.MenuItem({
 		label: 'Twitter',
 		click: function () {
@@ -1416,6 +1417,7 @@
 			openWindow("https://twitter.com/intent/tweet?text=\"" + encodeURI(title) + "\" —&url=" + url + "&via=ReedditApp&related=ReedditApp", 520, 430);
 		}
 	}));
+
 	shareMenu.append(new gui.MenuItem({
 		label: 'Email',
 		click: function () {
@@ -1424,6 +1426,7 @@
 			openURL("mailto:?subject=" + title + "&body=" + url + "%0A%0a%0A%0aShared via @ReedditApp.");
 		}
 	}));
+
 	shareMenu.append(new gui.MenuItem({
 		label: 'Copy Link',
 		click: function () {
