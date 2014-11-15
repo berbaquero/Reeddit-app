@@ -2,7 +2,7 @@
 
 This is a version of [Reeddit](https://github.com/berbaquero/reeddit/), built for OS X, using [node-webkit](https://github.com/rogerwang/node-webkit).
 
-[Download Reeddit.app](https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.2/Reeddit.app.zip).
+[Download Reeddit.app](https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.5/Reeddit.app.zip).
 
 For now, you will need to update manually - download each new version. I hope to work on a way to auto-update later.
 
