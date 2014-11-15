@@ -46,7 +46,7 @@
 
 	var gui = require('nw.gui'),
 		mainWindow = gui.Window.get(),
-		version = 1920;
+		version = 1950;
 
 	// Pseudo-Globals
 	var editingSubs = false,
