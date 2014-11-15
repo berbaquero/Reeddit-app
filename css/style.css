@@ -97,19 +97,19 @@ header .img { margin: 0 auto; }
 .screen1 {
     background-image: url('../img/screen1.png');
     background-size: 100%;
-    max-width: 469px;
+    max-width: 467px;
 }
 
 .screen2 {
     background-image: url('../img/screen2.png');
     background-size: 100%;
-    max-width: 604px;
+    max-width: 602px;
 }
 
 .screen3 {
     background-image: url('../img/screen3.png');
     background-size: 100%;
-    max-width: 1114px;
+    max-width: 1112px;
 }
 
 footer {
