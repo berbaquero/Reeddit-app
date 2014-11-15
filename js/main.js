@@ -16,27 +16,27 @@ ajax({
 });
 
 
-var screen = {
+var screenShot = {
 	container: document.querySelector("#screens .img"),
 	current: 2,
 	max: 3,
 	switch: function() {
-		var next = screen.current + 1;
-		if (next > screen.max || (next >= 3 && !screen.isWide())) {
+		var next = screenShot.current + 1;
+		if (next > screenShot.max || (next >= 3 && !screenShot.isWide())) {
 			next = 1;
 		}
 
-		screen.container.classList.remove("slide-in");
+		screenShot.container.classList.remove("slide-in");
 		// Reset Animations
-		screen.container.offsetWidth = screen.container.offsetWidth;
+		screenShot.container.offsetWidth = screenShot.container.offsetWidth;
 		// Switch Screens
-		screen.container.classList.remove("screen" + screen.current);
-		screen.container.classList.add("screen" + next);
-		screen.current = next;
-		screen.slideIn();
+		screenShot.container.classList.remove("screen" + screenShot.current);
+		screenShot.container.classList.add("screen" + next);
+		screenShot.current = next;
+		screenShot.slideIn();
 	},
 	slideIn: function() {
-		screen.container.classList.add("slide-in");
+		screenShot.container.classList.add("slide-in");
 	},
 	isWide: function() {
 		return window.innerWidth >= 960;
@@ -49,7 +49,7 @@ function preloadScreens() {
 	p1.classList.add("screen1");
 	document.body.appendChild(p1);
 
-	if (screen.isWide()) {
+	if (screenShot.isWide()) {
 		var p3 = document.createElement("span");
 		p3.className = "preload";
 		p3.classList.add("screen3");
@@ -58,9 +58,9 @@ function preloadScreens() {
 }
 
 function loadAnim() {
-	screen.slideIn();
-	screen.container.addEventListener("click", function() {
-		screen.switch();
+	screenShot.slideIn();
+	screenShot.container.addEventListener("click", function() {
+		screenShot.switch();
 	});
 
 	preloadScreens();
