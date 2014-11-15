@@ -3,29 +3,29 @@
 	border: 1px solid transparent;
 	border-radius: 4px;
 	margin: 0 auto;
-}
 
-&:hover,
-&:active {
-	border: 1px solid #777;
-	box-shadow: rgba(255, 255, 255, .4) 0 1px;
-}
+	&:hover,
+	&:active {
+		border: 1px solid #777;
+		box-shadow: rgba(255, 255, 255, .4) 0 1px;
+	}
 
-&:hover {
-	background-image: linear-gradient(#eee, #959595);
-}
+	&:hover {
+		background-image: linear-gradient(#eee, #959595);
+	}
 
-&:active {
-	background-image: linear-gradient(#959595, #d5d5d5);
-	box-shadow: inset 0 3px 7px #757575, rgba(white, 0.4) 0 1px;
+	&:active {
+		background-image: linear-gradient(#959595, #d5d5d5);
+		box-shadow: inset 0 3px 7px #757575, rgba(white, 0.4) 0 1px;
+	}
 }
 
 #refresh-icon .icon-btn {
 	opacity: .8;
-}
 
-&:active {
-	opacity: .9;
+	&:active {
+		opacity: .9;
+	}
 }
 
 .btn-side-menu-add {
@@ -38,10 +38,10 @@
 	font-size: 16px;
 	font-weight: 600;
 	visibility: hidden;
-}
 
-&:active {
-	color: $icon-hover-color;
+	&:active {
+		color: $icon-hover-color;
+	}
 }
 
 .menu-desc:hover .btn-side-menu-add {
@@ -54,7 +54,8 @@
 
 .comments-button,
 .btn-general {
-	color: #555 background-image:linear-gradient(whiteSmoke 0 %, #CCC 100 %);
+	color: #555;
+	background-image: linear-gradient(whiteSmoke 0%, #CCC 100%);
 	box-shadow: rgba(255, 255, 255, .4) 0 1px 0 inset,
 				rgba(255, 255, 255, .3) 0 25px 30px -12px inset,
 				rgba(0, 0, 0, .6) 0 1px 2px;

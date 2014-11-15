@@ -136,10 +136,12 @@
 		transform: scale(0.95);
 	}
 	50% {
-		opacity: 1 transform:scale(1.1);
+		opacity: 1;
+		transform: scale(1.1);
 	}
 	100% {
-		opacity: 0 transform:scale(0.3);
+		opacity: 0;
+		transform: scale(0.3);
 	}
 }
 
@@ -150,10 +152,12 @@
 
 @-webkit-keyframes bounceInDown {
 	0% {
-		opacity: 0 -webkit-transform:translateY(- 2000 px);
+		opacity: 0;
+		-webkit-transform: translateY(- 2000 px);
 	}
 	60% {
-		opacity: 1 -webkit-transform:translateY(30 px);
+		opacity: 1;
+		-webkit-transform: translateY(30px);
 	}
 	80% {
 		-webkit-transform: translateY(-10px);
