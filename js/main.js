@@ -7,10 +7,19 @@ ajax({
 	url: "version.json",
 	dataType: "json",
 	success: function(data) {
-		var message = document.createElement("span");
-		message.innerText = "\"" + data.update.title + "\" • " + data.update.date;
+		var message = document.createElement("span"),
+			messageText = "\"" + data.update.title + "\" • " + data.update.date;
+		if (message.innerText) {
+			message.innerText = messageText;
+		} else {
+			message.textContent = messageText;
+		}
 		var btn = document.querySelector(".main-button");
-		btn.innerText = btn.innerText + " • " + data.version.label;
+		if (btn.innerText) {
+			btn.innerText = btn.innerText + " • " + data.version.label;
+		} else {
+			btn.textContent = btn.textContent + " • " + data.version.label;
+		}
 		btn.appendChild(message);
 	}
 });
