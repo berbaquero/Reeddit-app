@@ -1390,7 +1390,7 @@
 		});
 
 		// Check for Yosemite
-		if (/10_10_/.test(navigator.userAgent)) {
+		if (/10_1\d_/.test(navigator.userAgent)) {
 			$addClass(body, "yosemite");
 		}
 
