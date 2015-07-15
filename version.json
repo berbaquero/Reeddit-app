@@ -1,13 +1,13 @@
 {
 	"version": {
-		"label": "v1.9.5",
-		"number": 1950,
-		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.5/Reeddit.app.zip"
+		"label": "v1.9.6",
+		"number": 1960,
+		"download_url": "https://github.com/berbaquero/Reeddit-app/releases/download/v1.9.6/Reeddit.app.zip"
 	},
 	"update": {
 		"trigger": true,
-		"title": "Yosemite support",
-		"message": "Visual upgrade, new icons and some UX improvements.",
-		"date": "November 15th, 2014"
+		"title": "Support for El Capitan",
+		"message": "Nothing else to see here",
+		"date": "July 15th, 2015"
 	}
 }
