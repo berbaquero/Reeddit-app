@@ -1,4 +1,4 @@
-# Reeddit for Mac
+# Reeddit for Mac - An Amazing Project
 
 This is a version of [Reeddit](https://github.com/berbaquero/reeddit/), built for OS X, using [node-webkit](https://github.com/rogerwang/node-webkit).
 
